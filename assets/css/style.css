@@ -673,6 +673,18 @@ body.menu-open { overflow: hidden; }
   font: 400 .84rem/1.25 var(--f-type);
 }
 .person--sec .person__role { background: var(--magenta); color: #fff; }
+.person__crew {
+  display: table;
+  margin: .45rem auto 0;
+  padding: .32em .5em .22em;
+  background: var(--gold);
+  color: var(--black);
+  border: 2px solid var(--black);
+  font: 400 .82rem/1 var(--f-display);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+}
 @media (max-width: 560px) {
   .people { gap: 22px 16px; }
   .person { width: calc(50% - 8px); }
@@ -701,6 +713,89 @@ body.menu-open { overflow: hidden; }
 .team-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem 1.2rem; margin-bottom: 1.8rem; }
 .team-head .h3 { margin: 0; }
 .team-head p { margin: 0; font-family: var(--f-type); color: var(--lilac); }
+
+/* full-team drop-down under the head cards */
+.roster { max-width: 900px; margin: clamp(34px, 5vw, 56px) auto 0; }
+.roster + .roster { margin-top: 26px; }
+.roster__blurb { margin: 0 0 1.1rem; font: 400 1rem/1.45 var(--f-type); }
+.roster__toggle {
+  display: flex;
+  align-items: center;
+  gap: .6rem 1rem;
+  padding: .85em 1.1em .8em;
+  border: 3px solid var(--black);
+  background: var(--grain-paper), var(--paper);
+  color: var(--black);
+  box-shadow: 5px 5px 0 var(--magenta);
+  font: 400 clamp(1.1rem, 2.4vw, 1.35rem)/1 var(--f-display);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  list-style: none;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.roster__toggle::-webkit-details-marker { display: none; }
+.roster__toggle:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--magenta); }
+.roster__count {
+  margin-left: auto;
+  padding: .35em .5em .25em;
+  background: var(--black);
+  color: var(--paper);
+  font: 400 .8rem/1 var(--f-type);
+  letter-spacing: .03em;
+  text-transform: none;
+  white-space: nowrap;
+  transform: rotate(-2deg);
+}
+.roster__icon { position: relative; flex: none; width: 1.3rem; height: 1.3rem; background: var(--magenta); }
+.roster__icon::before, .roster__icon::after {
+  content: "";
+  position: absolute;
+  inset: 50% 22% auto;
+  height: 3px;
+  margin-top: -1.5px;
+  background: #fff;
+  transition: transform .2s ease;
+}
+.roster__icon::after { transform: rotate(90deg); }
+.roster[open] .roster__icon::after { transform: rotate(0deg); }
+.roster[open] .roster__toggle { box-shadow: 3px 3px 0 var(--magenta); transform: none; }
+.roster__body { margin-top: 14px; animation: roster-in .25s ease; }
+.roster__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: member;
+  columns: 3 220px;
+  column-gap: 2rem;
+}
+.roster__body .committee__label { margin: 0; padding-bottom: .6rem; border-bottom: 2px solid var(--ink); }
+.roster__list li {
+  position: relative;
+  break-inside: avoid;
+  padding: .55rem 0 .55rem 2.3rem;
+  border-bottom: 1px dashed rgba(17, 14, 36, .45);
+  counter-increment: member;
+  font: 400 .98rem/1.3 var(--f-type);
+}
+.roster__list li::before {
+  content: counter(member, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: .5rem;
+  padding: .18em .3em .1em;
+  background: var(--black);
+  color: var(--paper);
+  font: 400 .78rem/1 var(--f-display);
+  transform: rotate(-4deg);
+}
+.roster__list li:nth-child(3n+2)::before { background: var(--magenta); color: #fff; }
+@keyframes roster-in { from { opacity: 0; transform: translateY(-6px); } }
+@media (max-width: 560px) {
+  .roster__toggle { flex-wrap: wrap; }
+  .roster__count { margin-left: 0; order: 3; }
+  .roster__icon { margin-left: auto; }
+}
 
 /* ---------- COMMITTEES ---------- */
 .notice { display: flex; align-items: center; gap: 1.2rem; margin-bottom: clamp(30px, 4vw, 48px); }

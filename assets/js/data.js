@@ -42,27 +42,65 @@ window.MISMUN = {
   ],
 
   /* ---- TEAMS: 2 heads + 2 deputy heads each ---------------------------- */
+  // Optional rosters: the rest of the team, one drop-down per group under the
+  // head cards (names are shown A–Z). Leave it out, or empty, for none.
+  // Optional crew: a small tag under a person's role, e.g. crew: "Digital".
   teams: [
     {
       id: "admin",
       name: "Admin Team",
       blurb: "Logistics, delegate support and keeping every session running on time.",
       members: [
-        { role: "Head of Admin", name: "Name TBA", photo: "" },
-        { role: "Head of Admin", name: "Name TBA", photo: "" },
-        { role: "Deputy Head of Admin", name: "Name TBA", photo: "" },
-        { role: "Deputy Head of Admin", name: "Name TBA", photo: "" },
+        { role: "Head of Admin", name: "Muhammad Armaghan", photo: "" },
+        { role: "Head of Admin", name: "Stefhanie Marie Cabanlong", photo: "" },
+        { role: "Deputy Head of Admin", name: "Muhammad Subhaan Kashif", photo: "" },
+        { role: "Deputy Head of Admin", name: "Hafsa Aamer", photo: "" },
+      ],
+      rosters: [
+        {
+          name: "Admin Team",
+          names: [
+            // Y11
+            "Halima Tahir", "Abdul Mateen Anjum", "Aida Shafa Anggraini", "Bernice Nanor",
+            "Vanessa Addy", "Rokaya Elgedawy", "Muhammad Azfar Afraz", "Fatima Soomro",
+            "Reemas Khalifah Alhajaj", "Enayah Anuj",
+            // Y12
+            "Iman Moodley", "Muhammad Ghazy Fawwaz Arkan", "Yusuf Peerbhai", "Yusraa Peerbhai",
+            "Nuha Mashood", "Benedict Seth Esmaya Mabulay", "Miral Hazem Samy Mohamed Abourayan",
+            "Catherine Efua Yamoah", "Nur Qaisara Damia Binti Abdul Jabar", "Haneen Elraei",
+            "Ofentse Mosethe", "Mariam Guab Yaziji", "Muaaz Hasham Khan", "Yan Wiriamo Macamo",
+            "Anoosh Khan", "Ali Nauman",
+            // Y13
+            "Muhammad Ibrahim", "Zahra Usman", "Hafsa Soomro", "Jeira Cortez", "Caroline Addy",
+            "Kingsley Prah Annan", "Remarne Valentine Smith",
+          ],
+        },
       ],
     },
     {
       id: "tech",
       name: "Tech Team",
-      blurb: "The website, sound, screens and everything with a plug.",
+      blurb: "The website, the Wi-Fi and everything with a plug.",
       members: [
-        { role: "Head of Tech", name: "Name TBA", photo: "" },
-        { role: "Head of Tech", name: "Name TBA", photo: "" },
-        { role: "Deputy Head of Tech", name: "Name TBA", photo: "" },
-        { role: "Deputy Head of Tech", name: "Name TBA", photo: "" },
+        { role: "Head of Tech", crew: "Digital", name: "AbdulKarim Tahir", photo: "" },
+        { role: "Head of Tech", crew: "Digital", name: "Fathy Rizq", photo: "" },
+        { role: "Deputy Head of Tech", crew: "Live Ops", name: "Ibrahim Dar", photo: "" },
+        { role: "Deputy Head of Tech", crew: "Live Ops", name: "Manal Ahmed", photo: "" },
+      ],
+      rosters: [
+        {
+          name: "Digital Team",
+          blurb: "Led by the Heads of Tech. Builds the MISMUN website, designs its artwork and runs the server that hosts it.",
+          names: ["Luqman", "Ziyan Afzal", "Haniya Ahmed", "Nahyan Shaikh", "Shaheer Abbas"],
+        },
+        {
+          name: "Live Ops Team",
+          blurb: "Led by the Deputy Heads of Tech. Sets up the conference Wi-Fi and fixes connection and technical issues in every committee room.",
+          names: [
+            "Juan Abdul Hamed", "Bakhthawar Hayat", "Aidyn Fateen", "Momin Cheema",
+            "Abarka", "Abdullah Sattar", "Abdulla Amer", "Hassan Raza",
+          ],
+        },
       ],
     },
     {

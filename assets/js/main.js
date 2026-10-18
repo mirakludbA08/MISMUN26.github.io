@@ -243,6 +243,7 @@
       "</div>" +
       '<h3 class="person__name">' + esc(p.name) + "</h3>" +
       '<p class="person__role">' + esc(p.role) + "</p>" +
+      (p.crew ? '<p class="person__crew">' + esc(p.crew) + "</p>" : "") +
       "</div></article>";
   }
 
@@ -250,6 +251,21 @@
     var el = $("[data-secretariat]");
     if (!el || !D.secretariat) return;
     el.innerHTML = D.secretariat.map(function (p, i) { return personCard(p, i, "person--sec"); }).join("");
+  }
+
+  function rosters(t) {
+    return (t.rosters || []).filter(function (g) { return g.names && g.names.length; }).map(function (g, i) {
+      var names = g.names.slice().sort(function (a, b) { return a.localeCompare(b); });
+      return '<details class="roster shell" style="--r:' + tilt(t.id.length + i, 0.5) + '">' +
+        '<summary class="roster__toggle"><span>Meet the full ' + esc(g.name) + "</span>" +
+        '<span class="roster__count">' + names.length + " members</span>" +
+        '<span class="roster__icon" aria-hidden="true"></span></summary>' +
+        '<div class="scrap scrap--news roster__body">' +
+        (g.blurb ? '<p class="roster__blurb">' + esc(g.blurb) + "</p>" : "") +
+        '<p class="committee__label">Members, A–Z</p>' +
+        '<ol class="roster__list">' + names.map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("") + "</ol>" +
+        "</div></details>";
+    }).join("");
   }
 
   function renderTeams() {
@@ -261,7 +277,7 @@
     var panels = D.teams.map(function (t, i) {
       return '<div class="tab-panel" role="tabpanel" id="panel-' + t.id + '" aria-labelledby="tab-' + t.id + '"' + (i === 0 ? "" : " hidden") + ">" +
         '<div class="team-head"><h3 class="h3"><span class="strip">' + esc(t.name) + "</span></h3><p>" + esc(t.blurb) + "</p></div>" +
-        '<div class="people">' + t.members.map(function (p, j) { return personCard(p, j + i * 4); }).join("") + "</div></div>";
+        '<div class="people">' + t.members.map(function (p, j) { return personCard(p, j + i * 4); }).join("") + "</div>" + rosters(t) + "</div>";
     }).join("");
     el.innerHTML = tabs + panels;
   }
