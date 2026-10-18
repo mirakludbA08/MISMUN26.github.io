@@ -233,10 +233,10 @@
   }
 
   /* ---------- team ---------- */
-  function personCard(p, i, extra) {
+  function personCard(p, i, extra, style) {
     var has = !!p.photo;
     var bp = [[20, 30], [70, 20], [40, 75], [85, 70], [10, 85], [55, 45]][i % 6];
-    return '<article class="person shell taped ' + (extra || "") + '" style="--r:' + tilt(i + (extra || "").length, 2) + ";--tr:" + (i % 2 ? 5 : -4) + 'deg">' +
+    return '<article class="person shell taped ' + (extra || "") + '" style="--r:' + tilt(i + (extra || "").length, 2) + ";--tr:" + (i % 2 ? 5 : -4) + "deg" + (style || "") + '">' +
       '<div class="scrap" >' +
       '<div class="person__photo' + (has ? "" : " person__photo--empty") + '" style="--bp:' + bp[0] + "% " + bp[1] + '%">' +
       (has ? '<img src="' + esc(p.photo) + '" alt="' + esc(p.name) + '" loading="lazy">' : ICON.silhouette + '<span class="person__tag">Photo soon</span>') +
@@ -250,7 +250,10 @@
   function renderSecretariat() {
     var el = $("[data-secretariat]");
     if (!el || !D.secretariat) return;
-    el.innerHTML = D.secretariat.map(function (p, i) { return personCard(p, i, "person--sec"); }).join("");
+    // most senior first, each card a step smaller (--s scales it in CSS)
+    el.innerHTML = D.secretariat.map(function (p, i) {
+      return personCard(p, i, "person--sec", ";--s:" + (p.scale || Math.max(0.6, 1 - i * 0.085)).toFixed(3));
+    }).join("");
   }
 
   function rosters(t) {

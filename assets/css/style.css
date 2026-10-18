@@ -692,6 +692,19 @@ body.menu-open { overflow: hidden; }
   .person__role { font-size: .76rem; }
 }
 
+/* Secretariat: --s (set per card in main.js) steps each card down in size */
+.people--sec { align-items: flex-end; }
+.person--sec { width: calc(236px * var(--s, 1)); }
+.person--sec .person__name { font-size: calc(1.6rem * var(--s, 1)); }
+.person--sec .person__role { font-size: max(.72rem, calc(.9rem * var(--s, 1))); }
+.person--sec .person__tag { font-size: max(.56rem, calc(.72rem * var(--s, 1))); white-space: nowrap; }
+.person--sec.taped::before { width: calc(104px * var(--s, 1)); margin-left: calc(-52px * var(--s, 1)); }
+@media (max-width: 560px) {
+  .person--sec { width: calc((100% - 16px) / 2 * var(--s, 1) / .915); }
+  .person--sec .person__name { font-size: calc(1.3rem * var(--s, 1)); }
+  .person--sec .person__role { font-size: max(.66rem, calc(.8rem * var(--s, 1))); }
+}
+
 /* tabs (team + schedule) */
 .tabs { display: flex; flex-wrap: wrap; gap: .8rem; margin: 0 0 2.2rem; }
 .tab {

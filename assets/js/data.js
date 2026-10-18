@@ -33,12 +33,14 @@ window.MISMUN = {
   },
 
   /* ---- THE BIG 5 (Secretariat) ----------------------------------------- */
+  // In order of seniority: each card is drawn a step smaller than the last.
+  // Optional scale (e.g. 0.6) overrides a card's size; 1 = the largest card.
   secretariat: [
-    { role: "Role TBA", name: "Name TBA", photo: "" },
-    { role: "Role TBA", name: "Name TBA", photo: "" },
-    { role: "Role TBA", name: "Name TBA", photo: "" },
-    { role: "Role TBA", name: "Name TBA", photo: "" },
-    { role: "Role TBA", name: "Name TBA", photo: "" },
+    { role: "Secretary General", name: "Ayan Mohamed", photo: "" },
+    { role: "Deputy Secretary General", name: "Rishi Sharma", photo: "" },
+    { role: "President", name: "Helen", photo: "" },
+    { role: "Deputy President", name: "Ammar Bin Khalid", photo: "" },
+    { role: "Deputy President", name: "Saffiyah", photo: "", scale: 0.6 },
   ],
 
   /* ---- TEAMS: 2 heads + 2 deputy heads each ---------------------------- */
