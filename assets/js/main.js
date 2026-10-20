@@ -15,7 +15,6 @@
     { id: "team", href: "team.html", label: "Team", desc: "The Secretariat plus the Admin, Tech and Press teams." },
     { id: "schedule", href: "schedule.html", label: "Schedule", desc: "Two days, session by session." },
     { id: "resources", href: "resources.html", label: "Resources", desc: "Rules of procedure, guides and research reports." },
-    { id: "register", href: "register.html", label: "Register", desc: "Sign up as a delegate, or get in touch.", cta: true },
   ];
 
   /* ---------- helpers ---------- */
@@ -95,8 +94,7 @@
   function navLinks(cls) {
     return PAGES.map(function (p) {
       var cur = p.id === page ? ' aria-current="page"' : "";
-      var c = p.cta ? ' class="nav__cta"' : "";
-      return '<li><a href="' + p.href + '"' + c + cur + ">" + esc(p.label) + "</a></li>";
+      return '<li><a href="' + p.href + '"' + cur + ">" + esc(p.label) + "</a></li>";
     }).join("");
   }
 
@@ -243,7 +241,6 @@
       "</div>" +
       '<h3 class="person__name">' + esc(p.name) + "</h3>" +
       '<p class="person__role">' + esc(p.role) + "</p>" +
-      (p.crew ? '<p class="person__crew">' + esc(p.crew) + "</p>" : "") +
       "</div></article>";
   }
 
@@ -264,7 +261,6 @@
         '<span class="roster__count">' + names.length + " members</span>" +
         '<span class="roster__icon" aria-hidden="true"></span></summary>' +
         '<div class="scrap scrap--news roster__body">' +
-        (g.blurb ? '<p class="roster__blurb">' + esc(g.blurb) + "</p>" : "") +
         '<p class="committee__label">Members, A–Z</p>' +
         '<ol class="roster__list">' + names.map(function (n) { return "<li>" + esc(n) + "</li>"; }).join("") + "</ol>" +
         "</div></details>";
@@ -343,44 +339,6 @@
     }).join("");
   }
 
-  /* ---------- register / contact ---------- */
-  function renderRegister() {
-    var btn = $("[data-register-btn]");
-    if (btn) {
-      if (L.register) {
-        btn.outerHTML = '<a class="btn" href="' + esc(L.register) + '" target="_blank" rel="noopener">Register now ' + ICON.arrow + "</a>";
-      } else {
-        btn.outerHTML = '<span class="btn" aria-disabled="true">Registration opens soon</span>';
-      }
-    }
-    var el = $("[data-contacts]");
-    if (!el) return;
-    var cards = [
-      {
-        icon: ICON.instagram, k: "Instagram", v: L.instagramHandle || "Coming soon",
-        btn: L.instagram ? '<a class="btn btn--paper" href="' + esc(L.instagram) + '" target="_blank" rel="noopener">Follow us ' + ICON.arrow + "</a>" : "",
-        look: "scrap--magenta",
-      },
-      {
-        icon: ICON.mail, k: "Email", v: L.email || "Coming soon",
-        btn: L.email ? '<a class="btn" href="mailto:' + esc(L.email) + '">Send an email ' + ICON.arrow + "</a>" : '<span class="btn" aria-disabled="true">Coming soon</span>',
-        look: "",
-      },
-      {
-        icon: ICON.pin, k: "Venue", v: C.venue,
-        btn: '<a class="btn btn--gold" href="' + esc(C.mapsUrl) + '" target="_blank" rel="noopener">Get directions ' + ICON.arrow + "</a>",
-        look: "scrap--news",
-      },
-    ];
-    el.innerHTML = cards.map(function (c, i) {
-      return '<article class="contact shell" style="--r:' + tilt(i, 1.4) + '">' +
-        '<div class="scrap torn-tb ' + c.look + '" style="--tx:' + i * 80 + "px;--bx:" + i * 140 + 'px">' +
-        '<span class="contact__icon">' + c.icon + "</span>" +
-        '<p class="contact__k">' + esc(c.k) + "</p>" +
-        '<p class="contact__v">' + esc(c.v) + "</p>" + c.btn + "</div></article>";
-    }).join("");
-  }
-
   /* ---------- accessible tabs ---------- */
   function initTabs() {
     $$('[role="tablist"]').forEach(function (list) {
@@ -433,7 +391,6 @@
   renderCommittees();
   renderSchedule();
   renderResources();
-  renderRegister();
   bindText();
   $$("[data-ransom]").forEach(ransomize);
   initTabs();

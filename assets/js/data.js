@@ -28,7 +28,6 @@ window.MISMUN = {
   links: {
     instagram: "https://www.instagram.com/mismunqa/",
     instagramHandle: "@mismunqa",
-    register: "", // e.g. a Google Form link
     email: "",    // e.g. "mismun@example.com"
   },
 
@@ -46,7 +45,6 @@ window.MISMUN = {
   /* ---- TEAMS: 2 heads + 2 deputy heads each ---------------------------- */
   // Optional rosters: the rest of the team, one drop-down per group under the
   // head cards (names are shown A–Z). Leave it out, or empty, for none.
-  // Optional crew: a small tag under a person's role, e.g. crew: "Digital".
   teams: [
     {
       id: "admin",
@@ -84,23 +82,18 @@ window.MISMUN = {
       name: "Tech Team",
       blurb: "The website, the Wi-Fi and everything with a plug.",
       members: [
-        { role: "Head of Tech", crew: "Digital", name: "AbdulKarim Tahir", photo: "" },
-        { role: "Head of Tech", crew: "Digital", name: "Fathy Rizq", photo: "" },
-        { role: "Deputy Head of Tech", crew: "Live Ops", name: "Ibrahim Dar", photo: "" },
-        { role: "Deputy Head of Tech", crew: "Live Ops", name: "Manal Ahmed", photo: "" },
+        { role: "Head of Tech", name: "AbdulKarim Tahir", photo: "" },
+        { role: "Head of Tech", name: "Fathy Rizq", photo: "" },
+        { role: "Deputy Head of Tech", name: "Ibrahim Dar", photo: "" },
+        { role: "Deputy Head of Tech", name: "Manal Ahmed", photo: "" },
       ],
       rosters: [
         {
-          name: "Digital Team",
-          blurb: "Led by the Heads of Tech. Builds the MISMUN website, designs its artwork and runs the server that hosts it.",
-          names: ["Luqman", "Ziyan Afzal", "Haniya Ahmed", "Nahyan Shaikh", "Shaheer Abbas"],
-        },
-        {
-          name: "Live Ops Team",
-          blurb: "Led by the Deputy Heads of Tech. Sets up the conference Wi-Fi and fixes connection and technical issues in every committee room.",
+          name: "Tech Team",
           names: [
-            "Juan Abdul Hamed", "Bakhthawar Hayat", "Aidyn Fateen", "Momin Cheema",
-            "Abarka", "Abdullah Sattar", "Abdulla Amer", "Hassan Raza",
+            "Haniya Ahmed", "Nahyan Shaikh", "Shaheer Abbas", "Aidyn Fateen", "Juan Abdul Hamed",
+            "Bakhthawar Hayat", "Momin Cheema", "Abarka", "Ziyan Afzal", "Luqman",
+            "Abdullah Sattar", "Abdulla Amer", "Hassan Raza",
           ],
         },
       ],
@@ -110,10 +103,23 @@ window.MISMUN = {
       name: "Press Team",
       blurb: "Photos, coverage and the stories that come out of every committee room.",
       members: [
-        { role: "Head of Press", name: "Name TBA", photo: "" },
-        { role: "Head of Press", name: "Name TBA", photo: "" },
-        { role: "Deputy Head of Press", name: "Name TBA", photo: "" },
-        { role: "Deputy Head of Press", name: "Name TBA", photo: "" },
+        { role: "Head of Press", name: "Yunus Afandi", photo: "" },
+        { role: "Head of Press", name: "Hafshah Susanto", photo: "" },
+        { role: "Deputy Head of Press", name: "Arnold Ivann Galang", photo: "" },
+        { role: "Deputy Head of Press", name: "Dhiya Putri", photo: "" },
+      ],
+      rosters: [
+        {
+          name: "Press Team",
+          names: [
+            "Amilia Shahzad", "Idrees Manahil", "Labibah Zahid", "Nadhifa Azzalfa Fiad Adi",
+            "Fatima Rasheeda Noor Eka", "Yumna Hasanah", "Aisyah Andini", "Rahisya Haris",
+            "Elsie Kelly", "Hafidzah Aulia Salsabila", "Julia Ena Poniente Bernardo",
+            "Nabila Fairuz Jejen", "Michael Pineda Herrera", "Jaren Yahael Lawrence",
+            "Andhiny Alfrissa", "Una Belissa Rivera", "Ghazala Arum", "Siluni Hapuarachchilage",
+            "Aisy Yumna", "Yaqtan Imran",
+          ],
+        },
       ],
     },
   ],

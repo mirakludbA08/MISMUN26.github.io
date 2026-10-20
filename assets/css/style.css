@@ -346,16 +346,6 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   box-shadow: 3px 3px 0 var(--magenta);
   transform: rotate(-2.5deg);
 }
-.nav a.nav__cta {
-  margin-left: .5rem;
-  background: var(--magenta);
-  color: #fff;
-  border: 2px solid #000;
-  box-shadow: 3px 3px 0 var(--gold);
-  transform: rotate(2deg);
-}
-.nav a.nav__cta:hover { background: #e0478f; }
-.nav a.nav__cta[aria-current="page"] { background: var(--gold); color: var(--black); box-shadow: 3px 3px 0 var(--magenta); }
 
 .menu-btn {
   display: none;
@@ -422,7 +412,6 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .menu__list li:nth-child(3n+2) a { background: var(--lavender); }
 .menu__list li:nth-child(3n) a { background: var(--newsprint); }
 .menu__list a[aria-current="page"] { background: var(--gold); }
-.menu__list a.nav__cta { background: var(--magenta); color: #fff; }
 .menu__foot { font-family: var(--f-type); color: var(--lilac); }
 .menu__foot a { color: var(--gold); }
 body.menu-open { overflow: hidden; }
@@ -673,18 +662,6 @@ body.menu-open { overflow: hidden; }
   font: 400 .84rem/1.25 var(--f-type);
 }
 .person--sec .person__role { background: var(--magenta); color: #fff; }
-.person__crew {
-  display: table;
-  margin: .45rem auto 0;
-  padding: .32em .5em .22em;
-  background: var(--gold);
-  color: var(--black);
-  border: 2px solid var(--black);
-  font: 400 .82rem/1 var(--f-display);
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  transform: rotate(-3deg);
-}
 @media (max-width: 560px) {
   .people { gap: 22px 16px; }
   .person { width: calc(50% - 8px); }
@@ -730,7 +707,6 @@ body.menu-open { overflow: hidden; }
 /* full-team drop-down under the head cards */
 .roster { max-width: 900px; margin: clamp(34px, 5vw, 56px) auto 0; }
 .roster + .roster { margin-top: 26px; }
-.roster__blurb { margin: 0 0 1.1rem; font: 400 1rem/1.45 var(--f-type); }
 .roster__toggle {
   display: flex;
   align-items: center;
@@ -892,27 +868,6 @@ body.menu-open { overflow: hidden; }
 .glossary div { break-inside: avoid; padding: .9rem 0; border-bottom: 1px dashed rgba(17, 14, 36, .45); }
 .glossary dt { font: 400 1.3rem/1.1 var(--f-display); text-transform: uppercase; margin-bottom: .3rem; }
 .glossary dd { margin: 0; line-height: 1.5; }
-
-/* ---------- REGISTER / CONTACT ---------- */
-.poster .scrap { padding: clamp(32px, 5vw, 64px) clamp(24px, 5vw, 64px); }
-.poster__grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: center; }
-.poster__title { margin: .4rem 0 1.1rem; font: 400 clamp(2.6rem, 7vw, 5rem)/.95 var(--f-display); text-transform: uppercase; display: flex; flex-direction: column; align-items: flex-start; gap: .08em; }
-.poster p { max-width: 50ch; }
-.poster__note { font-family: var(--f-type); font-size: .95rem; color: #4a456e; margin-top: 1rem; }
-@media (max-width: 720px) {
-  .poster__grid { grid-template-columns: 1fr; }
-  .poster .star-wrap { justify-self: start; }
-}
-.contacts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-  gap: clamp(24px, 3vw, 36px);
-}
-.contact .scrap { height: 100%; display: flex; flex-direction: column; }
-.contact__icon { width: 40px; height: 40px; margin-bottom: .8rem; }
-.contact__k { margin: 0 0 .2rem; font: 400 .85rem/1 var(--f-type); letter-spacing: .08em; text-transform: uppercase; }
-.contact__v { margin: 0 0 1.2rem; font: 400 1.7rem/1.05 var(--f-display); text-transform: uppercase; word-break: break-word; }
-.contact .btn { margin-top: auto; align-self: flex-start; font-size: 1rem; padding: .7em 1em .65em; }
 
 /* ---------- next page link ---------- */
 .next { padding: 0 0 clamp(56px, 8vw, 96px); }
