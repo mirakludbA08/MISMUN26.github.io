@@ -127,10 +127,10 @@ window.MISMUN = {
   /* ---- COMMITTEES & ISSUES --------------------------------------------- */
   // Set tba: true on placeholder entries; remove it when the real info is in.
   committees: [
-    { abbr: "TBA", name: "Committee to be announced", issues: ["Issue to be announced", "Issue to be announced"], tba: true },
-    { abbr: "TBA", name: "Committee to be announced", issues: ["Issue to be announced", "Issue to be announced"], tba: true },
-    { abbr: "TBA", name: "Committee to be announced", issues: ["Issue to be announced", "Issue to be announced"], tba: true },
-    { abbr: "TBA", name: "Committee to be announced", issues: ["Issue to be announced", "Issue to be announced"], tba: true },
+    { abbr: "TBA", name: "Committee name", issues: ["Issue 1", "Issue 2"], tba: true },
+    { abbr: "TBA", name: "Committee name", issues: ["Issue 1", "Issue 2"], tba: true },
+    { abbr: "TBA", name: "Committee name", issues: ["Issue 1", "Issue 2"], tba: true },
+    { abbr: "TBA", name: "Committee name", issues: ["Issue 1", "Issue 2"], tba: true },
   ],
 
   /* ---- SCHEDULE (provisional) ------------------------------------------ */

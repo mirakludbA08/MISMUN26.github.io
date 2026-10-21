@@ -445,16 +445,6 @@ body.menu-open { overflow: hidden; }
   align-items: center;
 }
 
-/* placeholder text box (until real copy arrives) */
-.placeholder {
-  border: 2px dashed currentColor;
-  padding: 1rem 1.1rem;
-  font: 400 1rem/1.5 var(--f-type);
-  color: var(--magenta-d);
-  background: rgba(209, 53, 127, .06);
-}
-.scrap--ink .placeholder, .placeholder--light { color: var(--lavender); background: rgba(166, 158, 230, .07); }
-
 /* ---------- HOME ---------- */
 .hero {
   position: relative;
@@ -602,7 +592,7 @@ body.menu-open { overflow: hidden; }
 .facts a { text-decoration-color: var(--magenta); text-underline-offset: 3px; }
 .theme-quote { text-align: center; }
 .theme-quote .h2 { font-size: clamp(2.8rem, 8vw, 5.6rem); line-height: .95; }
-.theme-quote .placeholder { max-width: 640px; margin: 1.4rem auto 0; text-align: left; }
+.theme-quote .lede { margin: 1.4rem auto 0; }
 
 /* ---------- TEAM ---------- */
 .people { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(22px, 3vw, 34px); }
