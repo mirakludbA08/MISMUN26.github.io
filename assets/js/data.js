@@ -35,11 +35,11 @@ window.MISMUN = {
   // In order of seniority: each card is drawn a step smaller than the last.
   // Optional scale (e.g. 0.6) overrides a card's size; 1 = the largest card.
   secretariat: [
-    { role: "Secretary General", name: "Ayan Mohamed", photo: "" },
-    { role: "Deputy Secretary General", name: "Rishi Sharma", photo: "" },
-    { role: "President", name: "Helen", photo: "" },
-    { role: "Deputy President", name: "Ammar Bin Khalid", photo: "" },
-    { role: "Deputy President", name: "Saffiyah", photo: "", scale: 0.6 },
+    { role: "Secretary General", name: "Ayan Mohamed", photo: "assets/img/team/ayan-mohamed.webp" },
+    { role: "Deputy Secretary General", name: "Rishi Sharma", photo: "assets/img/team/rishi-sharma.webp" },
+    { role: "President", name: "Helen", photo: "assets/img/team/helen.webp" },
+    { role: "Deputy President", name: "Ammar Bin Khalid", photo: "assets/img/team/ammar-bin-khalid.webp" },
+    { role: "Deputy President", name: "Saffiyah", photo: "assets/img/team/saffiyah.webp", scale: 0.6 },
   ],
 
   /* ---- TEAMS: 2 heads + 2 deputy heads each ---------------------------- */
@@ -51,10 +51,10 @@ window.MISMUN = {
       name: "Admin Team",
       blurb: "Logistics, delegate support and keeping every session running on time.",
       members: [
-        { role: "Head of Admin", name: "Muhammad Armaghan", photo: "" },
-        { role: "Head of Admin", name: "Stefhanie Marie Cabanlong", photo: "" },
-        { role: "Deputy Head of Admin", name: "Muhammad Subhaan Kashif", photo: "" },
-        { role: "Deputy Head of Admin", name: "Hafsa Aamer", photo: "" },
+        { role: "Head of Admin", name: "Muhammad Armaghan", photo: "assets/img/team/muhammad-armaghan.webp" },
+        { role: "Head of Admin", name: "Stefhanie Marie Cabanlong", photo: "assets/img/team/stefhanie-marie-cabanlong.webp" },
+        { role: "Deputy Head of Admin", name: "Muhammad Subhaan Kashif", photo: "assets/img/team/muhammad-subhaan-kashif.webp" },
+        { role: "Deputy Head of Admin", name: "Hafsa Aamer", photo: "assets/img/team/hafsa-aamer.webp" },
       ],
       rosters: [
         {
@@ -82,10 +82,10 @@ window.MISMUN = {
       name: "Tech Team",
       blurb: "The website, the Wi-Fi and everything with a plug.",
       members: [
-        { role: "Head of Tech", name: "AbdulKarim Tahir", photo: "" },
-        { role: "Head of Tech", name: "Fathy Rizq", photo: "" },
-        { role: "Deputy Head of Tech", name: "Ibrahim Dar", photo: "" },
-        { role: "Deputy Head of Tech", name: "Manal Ahmed", photo: "" },
+        { role: "Head of Tech", name: "AbdulKarim Tahir", photo: "assets/img/team/abdulkarim-tahir.webp" },
+        { role: "Head of Tech", name: "Fathy Rizq", photo: "assets/img/team/fathy-rizq.webp" },
+        { role: "Deputy Head of Tech", name: "Ibrahim Dar", photo: "assets/img/team/ibrahim-dar.webp" },
+        { role: "Deputy Head of Tech", name: "Manal Ahmed", photo: "assets/img/team/manal-ahmed.webp" },
       ],
       rosters: [
         {
@@ -103,10 +103,10 @@ window.MISMUN = {
       name: "Press Team",
       blurb: "Photos, coverage and the stories that come out of every committee room.",
       members: [
-        { role: "Head of Press", name: "Yunus Afandi", photo: "" },
-        { role: "Head of Press", name: "Hafshah Susanto", photo: "" },
-        { role: "Deputy Head of Press", name: "Arnold Ivann Galang", photo: "" },
-        { role: "Deputy Head of Press", name: "Dhiya Putri", photo: "" },
+        { role: "Head of Press", name: "Yunus Afandi", photo: "assets/img/team/yunus-afandi.webp" },
+        { role: "Head of Press", name: "Hafshah Susanto", photo: "assets/img/team/hafshah-susanto.webp" },
+        { role: "Deputy Head of Press", name: "Arnold Ivann Galang", photo: "assets/img/team/arnold-ivann-galang.webp" },
+        { role: "Deputy Head of Press", name: "Dhiya Putri", photo: "assets/img/team/dhiya-putri.webp" },
       ],
       rosters: [
         {
