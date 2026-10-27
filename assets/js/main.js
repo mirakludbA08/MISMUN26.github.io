@@ -90,6 +90,77 @@
     el.appendChild(vis);
   }
 
+  /* ---------- white letter cards on ink (the "SAVE THE DATE" posts) ---------- */
+  function cardify(el) {
+    var text = el.textContent.replace(/\s+/g, " ").trim();
+    if (!text) return;
+    var rand = rng(hash("cards" + text));
+    var vis = document.createElement("span");
+    vis.className = "cards__vis";
+    vis.setAttribute("aria-hidden", "true");
+    text.split(" ").forEach(function (word) {
+      var w = document.createElement("span");
+      w.className = "w";
+      Array.prototype.forEach.call(word, function (ch) {
+        var l = document.createElement("span");
+        l.className = "lc";
+        l.textContent = ch;
+        l.style.transform = "rotate(" + (rand() * 2.4 - 1.2).toFixed(1) + "deg)";
+        l.style.setProperty("--o1", (rand() * 2 - 1).toFixed(1) + "deg");
+        l.style.setProperty("--o2", (rand() * 2 - 1).toFixed(1) + "deg");
+        w.appendChild(l);
+      });
+      vis.appendChild(w);
+    });
+    var sr = document.createElement("span");
+    sr.className = "sr-only";
+    sr.textContent = text;
+    el.textContent = "";
+    el.appendChild(sr);
+    el.appendChild(vis);
+  }
+
+  /* ---------- date chips: 03 12 2026 to 04 12 2026 ---------- */
+  function renderDateChips() {
+    $$("[data-datechips]").forEach(function (el) {
+      function parts(iso) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? [m[3], m[2], m[1]] : []; }
+      var a = parts(C.start), b = parts(C.end);
+      if (!a.length) return;
+      var r = rng(hash("chips"));
+      function chips(p) {
+        return p.map(function (s) { return '<span class="dc" style="--r:' + (r() * 6 - 3).toFixed(1) + 'deg">' + s + "</span>"; }).join("");
+      }
+      el.innerHTML = '<span class="sr-only">' + esc(C.datesLabel) + "</span>" +
+        '<span class="datechips__vis" aria-hidden="true">' + chips(a) +
+        (b.length && b.join() !== a.join() ? '<span class="dc dc--to">to</span>' + chips(b) : "") + "</span>";
+    });
+  }
+
+  /* ---------- sprinkled white stars (+ optional scribble) on [data-stars] ---------- */
+  var STAR5 = '<svg viewBox="0 0 24 24"><path d="M12 1.6l3 6.9 7.5.7-5.7 5 1.7 7.4L12 17.8l-6.5 3.8 1.7-7.4-5.7-5 7.5-.7z"/></svg>';
+  function sprinkle(el, k) {
+    var n = parseInt(el.getAttribute("data-stars"), 10) || 8;
+    var rand = rng(hash("stars" + page + k));
+    var html = "";
+    for (var i = 0; i < n; i++) {
+      var x = rand() * 100, y = rand() * 100;
+      // push stars out of the middle so they frame the content instead of covering it
+      if (x > 16 && x < 84 && y > 20 && y < 80) {
+        if (rand() < 0.5) x = x < 50 ? x * 0.25 : 100 - (100 - x) * 0.25;
+        else y = y < 50 ? y * 0.3 : 100 - (100 - y) * 0.3;
+      }
+      html += '<span class="st' + (rand() < 0.22 ? " st--o" : "") + '" style="left:' + x.toFixed(1) + "%;top:" + y.toFixed(1) +
+        "%;--sz:" + (10 + rand() * 20).toFixed(0) + "px;--rot:" + (rand() * 70 - 35).toFixed(0) + 'deg">' + STAR5 + "</span>";
+    }
+    var sc = el.getAttribute("data-scribble");
+    if (sc) html += '<span class="scribble" style="' + esc(sc) + '"></span>';
+    var layer = document.createElement("div");
+    layer.className = "stars";
+    layer.setAttribute("aria-hidden", "true");
+    layer.innerHTML = html;
+    el.insertBefore(layer, el.firstChild);
+  }
+
   /* ---------- header, menu, footer ---------- */
   function navLinks(cls) {
     return PAGES.map(function (p) {
@@ -191,11 +262,11 @@
   function renderTiles() {
     var t = $("[data-tiles]");
     if (!t) return;
-    var looks = ["", "scrap--news", "scrap--lav", "scrap--gold", "scrap--news", "scrap--magenta"];
+    var looks = ["", "scrap--violet", "scrap--butter", "scrap--teal", "scrap--pink", "scrap--news"];
     t.innerHTML = PAGES.slice(1).map(function (p, i) {
       return '<a class="tile shell" href="' + p.href + '" style="--r:' + tilt(i, 1.8) + ";--tr:" + (i % 2 ? 4 : -5) + 'deg">' +
         '<div class="scrap torn-tb ' + looks[i % looks.length] + '" style="--tx:' + i * 70 + "px;--bx:" + i * 130 + 'px">' +
-        '<span class="tile__num">No. 0' + (i + 1) + "</span>" +
+        '<span class="numdot tile__num">0' + (i + 1) + "</span>" +
         '<h3 class="tile__title">' + esc(p.label) + "</h3>" +
         '<p class="tile__desc">' + esc(p.desc) + "</p>" +
         '<span class="tile__go">Open</span></div></a>';
@@ -231,13 +302,14 @@
   }
 
   /* ---------- team ---------- */
-  function personCard(p, i, extra, style) {
+  function personCard(p, i, extra, style, num) {
     var has = !!p.photo;
     var bp = [[20, 30], [70, 20], [40, 75], [85, 70], [10, 85], [55, 45]][i % 6];
     return '<article class="person shell taped ' + (extra || "") + '" style="--r:' + tilt(i + (extra || "").length, 2) + ";--tr:" + (i % 2 ? 5 : -4) + "deg" + (style || "") + '">' +
       '<div class="scrap" >' +
       '<div class="person__photo' + (has ? "" : " person__photo--empty") + '" style="--bp:' + bp[0] + "% " + bp[1] + '%">' +
       (has ? '<img src="' + esc(p.photo) + '" alt="' + esc(p.name) + '" loading="lazy">' : ICON.silhouette + '<span class="person__tag">Photo soon</span>') +
+      (num ? '<span class="numdot person__num" aria-hidden="true">' + esc(num) + "</span>" : "") +
       "</div>" +
       '<h3 class="person__name">' + esc(p.name) + "</h3>" +
       '<p class="person__role">' + esc(p.role) + "</p>" +
@@ -249,7 +321,7 @@
     if (!el || !D.secretariat) return;
     // most senior first, each card a step smaller (--s scales it in CSS)
     el.innerHTML = D.secretariat.map(function (p, i) {
-      return personCard(p, i, "person--sec", ";--s:" + (p.scale || Math.max(0.6, 1 - i * 0.085)).toFixed(3));
+      return personCard(p, i, "person--sec", ";--s:" + (p.scale || Math.max(0.6, 1 - i * 0.085)).toFixed(3), "0" + (i + 1));
     }).join("");
   }
 
@@ -271,12 +343,25 @@
     var el = $("[data-teams]");
     if (!el || !D.teams) return;
     var tabs = '<div class="tabs" role="tablist" aria-label="Teams">' + D.teams.map(function (t, i) {
-      return '<button class="tab" role="tab" type="button" id="tab-' + t.id + '" aria-controls="panel-' + t.id + '" aria-selected="' + (i === 0) + '" tabindex="' + (i === 0 ? 0 : -1) + '" style="--r:' + (i % 2 ? 1.5 : -1.5) + 'deg">' + esc(t.name) + "</button>";
+      return '<button class="tab" role="tab" type="button" id="tab-' + t.id + '" data-team="' + esc(t.id) + '" aria-controls="panel-' + t.id + '" aria-selected="' + (i === 0) + '" tabindex="' + (i === 0 ? 0 : -1) + '" style="--r:' + (i % 2 ? 1.5 : -1.5) + 'deg">' + esc(t.name) + "</button>";
     }).join("") + "</div>";
+    // each team gets its own "Meet the team" poster, coloured like the Instagram posts
     var panels = D.teams.map(function (t, i) {
+      var short = t.name.replace(/\s*team$/i, "");
+      var tags = (t.tags || []).map(function (s) { return '<span class="tag">' + esc(s) + "</span>"; }).join("");
       return '<div class="tab-panel" role="tabpanel" id="panel-' + t.id + '" aria-labelledby="tab-' + t.id + '"' + (i === 0 ? "" : " hidden") + ">" +
-        '<div class="team-head"><h3 class="h3"><span class="strip">' + esc(t.name) + "</span></h3><p>" + esc(t.blurb) + "</p></div>" +
-        '<div class="people">' + t.members.map(function (p, j) { return personCard(p, j + i * 4); }).join("") + "</div>" + rosters(t) + "</div>";
+        '<div class="shell" style="--r:' + (i % 2 ? 0.4 : -0.4) + 'deg">' +
+        '<section class="team-poster team-poster--' + esc(t.id) + ' torn-tb" data-stars="16" data-scribble="top:5%;left:2%;transform:rotate(-14deg)" style="--tx:' + i * 90 + "px;--bx:" + i * 140 + 'px">' +
+        '<div class="team-poster__burst" aria-hidden="true"></div>' +
+        '<header class="team-poster__head">' +
+        '<span class="team-poster__year" aria-hidden="true">’' + esc(String(C.year || "").slice(-2)) + "</span>" +
+        '<span class="team-poster__meet">Meet the team</span>' +
+        '<h3 class="team-poster__name brush">' + esc(short) + "</h3>" +
+        (tags ? '<p class="team-poster__tags">' + tags + "</p>" : "") +
+        (t.blurb ? '<p class="team-poster__blurb">' + esc(t.blurb) + "</p>" : "") +
+        "</header>" +
+        '<div class="people">' + t.members.map(function (p, j) { return personCard(p, j + i * 4, "", "", (j < 9 ? "0" : "") + (j + 1)); }).join("") + "</div>" +
+        rosters(t) + "</section></div></div>";
     }).join("");
     el.innerHTML = tabs + panels;
   }
@@ -310,14 +395,31 @@
     var tabs = '<div class="tabs" role="tablist" aria-label="Conference days">' + D.schedule.map(function (d, i) {
       return '<button class="tab" role="tab" type="button" id="tab-day' + i + '" aria-controls="panel-day' + i + '" aria-selected="' + (i === 0) + '" tabindex="' + (i === 0 ? 0 : -1) + '" style="--r:' + (i % 2 ? 1.5 : -1.5) + 'deg">' + esc(d.day) + "</button>";
     }).join("") + "</div>";
+    // each day is a cream notebook poster, like the "Save the date" post
     var panels = D.schedule.map(function (d, i) {
+      var words = String(d.day).split(" ");
+      var rows = d.items.map(function (it) {
+        var slug = String(it.location || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+        return "<tr>" +
+          '<td class="tt__time">' + esc(it.time) + "</td>" +
+          '<td class="tt__what">' + esc(it.title) + (it.note ? '<span class="tt__note">' + esc(it.note) + "</span>" : "") + "</td>" +
+          '<td class="tt__where">' + (it.location ? '<span class="tt__loc tt__loc--' + slug + '">' + esc(it.location) + "</span>" : "") + "</td>" +
+          "</tr>";
+      }).join("");
       return '<div class="tab-panel" role="tabpanel" id="panel-day' + i + '" aria-labelledby="tab-day' + i + '"' + (i === 0 ? "" : " hidden") + ">" +
-        '<div class="day-head"><h3 class="h3"><span class="strip">' + esc(d.day) + "</span></h3><p>" + esc(d.date) + "</p></div>" +
-        '<ol class="timeline">' + d.items.map(function (it, j) {
-          return '<li class="slot" style="--r:' + tilt(j + i * 10, 0.6) + '"><span class="slot__time">' + esc(it.time) + "</span>" +
-            '<div class="slot__body"><p class="slot__title">' + esc(it.title) + "</p>" +
-            (it.note ? '<p class="slot__note">' + esc(it.note) + "</p>" : "") + "</div></li>";
-        }).join("") + "</ol></div>";
+        '<article class="dayposter shell" style="--r:' + (i % 2 ? 0.5 : -0.5) + 'deg">' +
+        '<div class="scrap scrap--cream torn-tb dayposter__paper" style="--tx:' + i * 80 + "px;--bx:" + i * 150 + 'px">' +
+        '<header class="dayposter__head"><div>' +
+        '<p class="dayposter__mast"><span class="blackletter">' + esc(d.weekday || "") + "</span><span>" + esc(d.date) + "</span></p>" +
+        '<h3 class="dayposter__title"><span class="dp-slab distress">' + esc(words[0]) + "</span>" +
+        (words.length > 1 ? '<span class="dp-type distress">' + esc(words.slice(1).join(" ")) + "</span>" : "") + "</h3></div>" +
+        (d.dateShort ? '<div class="star4-wrap" aria-hidden="true"><div class="star4" style="--size:150px;--r:' + (i % 2 ? -8 : 9) + 'deg">' +
+          esc(d.dateShort) + "<small>" + esc(d.weekdayShort || "") + "</small></div></div>" : "") +
+        "</header>" +
+        '<table class="tt"><caption class="sr-only">' + esc(d.day + ", " + (d.weekday ? d.weekday + " " : "") + d.date) + "</caption>" +
+        '<thead><tr><th scope="col">Time</th><th scope="col">Procedure</th><th scope="col">Location</th></tr></thead>' +
+        "<tbody>" + rows + "</tbody></table>" +
+        "</div></article></div>";
     }).join("");
     el.innerHTML = tabs + panels;
   }
@@ -391,8 +493,11 @@
   renderCommittees();
   renderSchedule();
   renderResources();
+  renderDateChips();
   bindText();
   $$("[data-ransom]").forEach(ransomize);
+  $$("[data-cards]").forEach(cardify);
+  $$("[data-stars]").forEach(sprinkle);
   initTabs();
   countdown();
 })();

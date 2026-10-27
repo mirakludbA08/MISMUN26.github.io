@@ -16,9 +16,9 @@ window.MISMUN = {
     theme: "Liberty",
     datesLabel: "3–4 December 2026",
     datesShort: "Dec 3–4",
-    // Countdown target (Qatar time, UTC+3). Change the time once it is confirmed.
-    start: "2026-12-03T08:00:00+03:00",
-    end: "2026-12-04T18:00:00+03:00",
+    // Countdown target (Qatar time, UTC+3): Day One arrival to the end of Day Two.
+    start: "2026-12-03T15:30:00+03:00",
+    end: "2026-12-04T19:30:00+03:00",
     venue: "Mesaieed International School",
     venueDetail: "Secondary Branch",
     city: "Mesaieed, Qatar",
@@ -50,6 +50,7 @@ window.MISMUN = {
       id: "admin",
       name: "Admin Team",
       blurb: "Logistics, delegate support and keeping every session running on time.",
+      tags: ["“Keeping it organised”", "Adminteam"], // pink labels on the team poster
       members: [
         { role: "Head of Admin", name: "Muhammad Armaghan", photo: "assets/img/team/muhammad-armaghan.webp" },
         { role: "Head of Admin", name: "Stefhanie Marie Cabanlong", photo: "assets/img/team/stefhanie-marie-cabanlong.webp" },
@@ -81,6 +82,7 @@ window.MISMUN = {
       id: "tech",
       name: "Tech Team",
       blurb: "The website, the Wi-Fi and everything with a plug.",
+      tags: ["Techteam", "Dreamteam"],
       members: [
         { role: "Head of Tech", name: "AbdulKarim Tahir", photo: "assets/img/team/abdulkarim-tahir.webp" },
         { role: "Head of Tech", name: "Fathy Rizq", photo: "assets/img/team/fathy-rizq.webp" },
@@ -102,6 +104,7 @@ window.MISMUN = {
       id: "press",
       name: "Press Team",
       blurb: "Photos, coverage and the stories that come out of every committee room.",
+      tags: ["Pressteam", "Bestteam!"],
       members: [
         { role: "Head of Press", name: "Yunus Afandi", photo: "assets/img/team/yunus-afandi.webp" },
         { role: "Head of Press", name: "Hafshah Susanto", photo: "assets/img/team/hafshah-susanto.webp" },
@@ -133,31 +136,39 @@ window.MISMUN = {
     { abbr: "TBA", name: "Committee name", issues: ["Issue 1", "Issue 2"], tba: true },
   ],
 
-  /* ---- SCHEDULE (provisional) ------------------------------------------ */
-  scheduleProvisional: true, // set to false once timings are final
+  /* ---- SCHEDULE ---------------------------------------------------------- */
+  // Each row: time, title (the procedure), location. An optional note shows
+  // under the title. Set scheduleProvisional to true to show a "not final" sticker.
+  scheduleProvisional: false,
   schedule: [
     {
-      day: "Day 1",
-      date: "Thursday 3 December",
+      day: "Day One",
+      weekday: "Thursday",
+      weekdayShort: "Thu",
+      date: "3 December 2026",
+      dateShort: "Dec 3",
       items: [
-        { time: "TBA", title: "Registration & check-in", note: "Collect your badge and placard." },
-        { time: "TBA", title: "Opening ceremony", note: "" },
-        { time: "TBA", title: "Committee session I", note: "Lobbying and opening speeches." },
-        { time: "TBA", title: "Break", note: "" },
-        { time: "TBA", title: "Committee session II", note: "" },
-        { time: "TBA", title: "Lunch", note: "" },
-        { time: "TBA", title: "Committee session III", note: "" },
+        { time: "3:30 PM – 4:30 PM", title: "Arrival", location: "Main Hall" },
+        { time: "4:30 PM – 5:00 PM", title: "Opening Ceremony", location: "Main Hall" },
+        { time: "5:00 PM – 7:30 PM", title: "Lobbying & Registration", location: "Committee Rooms" },
       ],
     },
     {
-      day: "Day 2",
-      date: "Friday 4 December",
+      day: "Day Two",
+      weekday: "Friday",
+      weekdayShort: "Fri",
+      date: "4 December 2026",
+      dateShort: "Dec 4",
       items: [
-        { time: "TBA", title: "Committee session IV", note: "" },
-        { time: "TBA", title: "Break", note: "" },
-        { time: "TBA", title: "Committee session V", note: "Final debate and voting." },
-        { time: "TBA", title: "Lunch", note: "" },
-        { time: "TBA", title: "Closing ceremony & awards", note: "" },
+        { time: "8:00 AM – 8:30 AM", title: "Arrival & Breakfast", location: "Main Hall" },
+        { time: "8:30 AM – 10:00 AM", title: "Committee Session 1", location: "Committee Rooms" },
+        { time: "10:15 AM – 11:30 AM", title: "Committee Session 2", location: "Committee Rooms" },
+        { time: "11:30 AM – 12:15 PM", title: "Prayer Time", location: "Sixth Form Centre" },
+        { time: "12:15 PM – 1:15 PM", title: "Lunch", location: "Main Hall" },
+        { time: "1:15 PM – 2:30 PM", title: "Committee Session 3", location: "Committee Rooms" },
+        { time: "2:30 PM – 4:30 PM", title: "Committee Session 4", location: "Committee Rooms" },
+        { time: "4:30 PM – 5:30 PM", title: "Closing Ceremony", location: "Main Hall" },
+        { time: "5:30 PM – 7:30 PM", title: "Dinner & Performance", location: "Main Hall" },
       ],
     },
   ],

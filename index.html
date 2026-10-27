@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Anton&family=Archivo:wght@400;500;700&family=Playfair+Display:ital,wght@0,900;1,900&family=Rubik+Dirt&family=Special+Elite&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Anton&family=Archivo:wdth,wght@62..125,400..900&family=Roboto+Serif:opsz,wdth,wght@8..144,50..100,600..900&family=Permanent+Marker&family=Playfair+Display:ital,wght@0,900;1,900&family=Special+Elite&family=UnifrakturMaguntia&display=swap">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body data-page="home">
@@ -21,23 +21,20 @@
   <header class="site-header torn-b" data-header></header>
 
   <main id="main">
-    <section class="hero torn-b">
+    <section class="hero torn-b" data-stars="18" data-scribble="bottom:18%;left:44%;transform:rotate(10deg)">
       <div class="wrap hero__grid">
         <div class="hero__logo">
           <img src="assets/img/logo.webp" alt="Liberty, MISMUN 2026 logo: a raised fist holding a flaming torch, breaking free of chains" width="1000" height="1119" fetchpriority="high">
-          <div class="hero__star star-wrap">
-            <div class="star" style="--size:150px;--r:-10deg"><span data-bind="datesShort">Dec 3–4</span><small>2026</small></div>
+          <div class="hero__star star4-wrap" aria-hidden="true">
+            <div class="star4" style="--size:170px;--r:-10deg"><span data-bind="datesShort">Dec 3–4</span><small>2026</small></div>
           </div>
         </div>
         <div class="hero__copy">
           <h1 class="sr-only">MISMUN 2026: Liberty. Model United Nations at Mesaieed International School.</h1>
-          <span class="chip">MISMUN <small>is</small> back</span>
-          <p class="hero__title">
-            <span class="strip"><span class="distress">Save the</span></span>
-            <span class="strip"><span class="distress">date</span></span>
-          </p>
+          <p class="labels"><span class="lb">MISMUN</span><span class="lb lb--plain">is</span><span class="lb">Back</span></p>
+          <p class="hero__title ink cards" data-cards>Save the date</p>
+          <p class="datechips" data-datechips>3–4 December 2026</p>
           <ul class="hero__meta">
-            <li data-bind="dates">3–4 December 2026</li>
             <li data-bind="venue">Mesaieed International School</li>
             <li data-bind="city">Mesaieed, Qatar</li>
           </ul>
@@ -50,9 +47,9 @@
 
     <section class="countdown wrap" aria-labelledby="cd-title">
       <div class="shell" style="--r:-0.8deg">
-        <div class="scrap scrap--news torn-tb" data-countdown>
+        <div class="scrap scrap--black torn-tb" data-countdown>
           <div>
-            <span class="label label--dark">// Countdown</span>
+            <span class="label">// Countdown</span>
             <h2 class="countdown__title" id="cd-title" data-countdown-title>Conference begins in</h2>
           </div>
           <div class="countdown__units">
@@ -76,7 +73,7 @@
       </div>
     </section>
 
-    <section class="ig-band torn-tb">
+    <section class="ig-band torn-tb" data-stars="10">
       <div class="wrap ig-band__inner">
         <div>
           <span class="chip chip--gold">Follow the paper trail</span>

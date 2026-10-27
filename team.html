@@ -10,7 +10,7 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Anton&family=Archivo:wght@400;500;700&family=Playfair+Display:ital,wght@0,900;1,900&family=Rubik+Dirt&family=Special+Elite&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Anton&family=Archivo:wdth,wght@62..125,400..900&family=Roboto+Serif:opsz,wdth,wght@8..144,50..100,600..900&family=Permanent+Marker&family=Playfair+Display:ital,wght@0,900;1,900&family=Special+Elite&family=UnifrakturMaguntia&display=swap">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body data-page="team">
@@ -18,7 +18,7 @@
   <header class="site-header torn-b" data-header></header>
 
   <main id="main">
-    <section class="page-hero torn-b" style="--hero-pos:80% 40%">
+    <section class="page-hero torn-b" data-stars="12" data-scribble="top:14%;right:5%;transform:rotate(-8deg)" style="--hero-pos:80% 40%">
       <div class="wrap">
         <span class="chip chip--gold">File No. 03</span>
         <h1 class="ransom" data-ransom>The Team</h1>
@@ -28,13 +28,21 @@
 
     <section class="section">
       <div class="wrap">
-        <div class="section__head">
-          <span class="label">// The Big 5</span>
-          <h2 class="h2">The Secretariat</h2>
-          <p>Leading the conference from the first gavel to the last.</p>
+        <!-- "Meet the Big 5" poster. Names and roles are set in assets/js/data.js -->
+        <div class="shell" style="--r:-0.3deg">
+          <div class="sec-poster torn-tb" data-stars="20" data-scribble="top:7%;right:4%;transform:rotate(12deg)">
+            <div class="sec-poster__burst" aria-hidden="true"></div>
+            <header class="sec-poster__head">
+              <span class="team-poster__year" aria-hidden="true">’26</span>
+              <span class="sec-poster__meet">Meet the</span>
+              <h2 class="ink cards sec-poster__title" data-cards>Big 5</h2>
+              <p class="team-poster__tags"><span class="tag tag--gold">The Secretariat</span></p>
+              <p class="team-poster__blurb">Leading the conference from the first gavel to the last.</p>
+            </header>
+            <div class="people people--sec" data-secretariat></div>
+            <div class="sec-poster__stage" aria-hidden="true"></div>
+          </div>
         </div>
-        <!-- Names and roles are set in assets/js/data.js -->
-        <div class="people people--sec" data-secretariat></div>
       </div>
     </section>
 
