@@ -805,8 +805,29 @@ body.menu-open { overflow: hidden; }
 .committee .scrap { height: 100%; }
 .committee__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .committee__abbr { font: 400 clamp(2.2rem, 4vw, 2.8rem)/1 var(--f-display); text-transform: uppercase; }
-.committee__num { font: 400 .9rem/1 var(--f-type); color: var(--magenta-d); padding-top: .4rem; white-space: nowrap; }
-.committee__name { margin: 1rem 0 1.2rem; font: 400 1.35rem/1.15 var(--f-serif); font-weight: 900; }
+.committee__num { flex: none; }
+.committee__name { margin: 1rem 0 .3rem; font: 400 1.35rem/1.15 var(--f-serif); font-weight: 900; }
+.committee__focus { margin: 0; font: 400 .95rem/1.35 var(--f-type); color: #3a3560; }
+/* head + deputy chair */
+.chairs { margin: 1.1rem 0 1.3rem; padding: .2rem 0; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+.chair { display: grid; grid-template-columns: 7.2rem 1fr; align-items: baseline; gap: .2rem .8rem; padding: .55rem 0; }
+.chair + .chair { border-top: 1px dashed rgba(17, 14, 36, .45); }
+.chair dt { font: 400 .78rem/1.2 var(--f-type); letter-spacing: .06em; text-transform: uppercase; color: var(--magenta-d); }
+.chair dd { margin: 0; font: 400 1.2rem/1.15 var(--f-display); text-transform: uppercase; }
+.chair__school {
+  display: inline-block;
+  margin-left: .3rem;
+  padding: .22em .4em .14em;
+  background: var(--tag-pink);
+  color: var(--black);
+  font: 800 .72rem/1 var(--f-cond);
+  font-stretch: 72%;
+  font-variation-settings: "wdth" 72;
+  letter-spacing: .04em;
+  vertical-align: .2em;
+  transform: rotate(-2deg);
+}
+.committee__tba { margin: 0; padding-top: .55rem; border-top: 2px solid var(--ink); color: rgba(17, 14, 36, .6); font-style: italic; }
 .committee__label { margin: 0 0 .6rem; font: 400 .85rem/1 var(--f-type); text-transform: uppercase; letter-spacing: .08em; color: var(--magenta-d); }
 .issues { margin: 0; padding: 0; list-style: none; counter-reset: issue; border-top: 2px solid var(--ink); }
 .issues li {

@@ -370,18 +370,28 @@
   function renderCommittees() {
     var el = $("[data-committees]");
     if (!el || !D.committees) return;
-    var anyTba = D.committees.some(function (c) { return c.tba; });
+    // the "coming soon" sticker shows while any committee is still missing its issues
+    var missing = D.committees.some(function (c) { return c.tba || !(c.issues && c.issues.length); });
     var notice = $("[data-committee-notice]");
-    if (notice) notice.hidden = !anyTba;
+    if (notice) notice.hidden = !missing;
     var looks = ["", "scrap--news", "scrap--lav", "scrap--news"];
     el.innerHTML = D.committees.map(function (c, i) {
+      var issues = c.issues || [];
+      var chairs = (c.chairs || []).map(function (ch) {
+        return '<div class="chair"><dt>' + esc(ch.role) + "</dt><dd>" + esc(ch.name) +
+          (ch.school ? ' <span class="chair__school">' + esc(ch.school) + "</span>" : "") + "</dd></div>";
+      }).join("");
       return '<article class="committee shell' + (c.tba ? " committee--tba" : "") + '" style="--r:' + tilt(i, 1.2) + '">' +
         '<div class="scrap torn-tb ' + looks[i % looks.length] + '" style="--tx:' + i * 90 + "px;--bx:" + i * 150 + 'px">' +
         '<div class="committee__top"><span class="committee__abbr"><span class="strip">' + esc(c.abbr) + "</span></span>" +
-        '<span class="committee__num">No. ' + (i + 1 < 10 ? "0" : "") + (i + 1) + "</span></div>" +
+        '<span class="numdot committee__num" aria-hidden="true">' + (i + 1 < 10 ? "0" : "") + (i + 1) + "</span></div>" +
         '<h3 class="committee__name">' + esc(c.name) + "</h3>" +
+        (c.focus ? '<p class="committee__focus">' + esc(c.focus) + "</p>" : "") +
+        (chairs ? '<dl class="chairs">' + chairs + "</dl>" : "") +
         '<p class="committee__label">Issues on the agenda</p>' +
-        '<ol class="issues">' + (c.issues || []).map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ol>" +
+        (issues.length
+          ? '<ol class="issues">' + issues.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ol>"
+          : '<p class="committee__tba">To be announced</p>') +
         "</div></article>";
     }).join("");
   }

@@ -85,7 +85,7 @@ window.MISMUN = {
       tags: ["Techteam", "Dreamteam"],
       members: [
         { role: "Head of Tech", name: "AbdulKarim Tahir", photo: "assets/img/team/abdulkarim-tahir.webp" },
-        { role: "Head of Tech", name: "Fathy Rizq", photo: "assets/img/team/fathy-rizq.webp" },
+        { role: "Head of Tech", name: "Fathy Rizk", photo: "assets/img/team/fathy-rizk.webp" },
         { role: "Deputy Head of Tech", name: "Ibrahim Dar", photo: "assets/img/team/ibrahim-dar.webp" },
         { role: "Deputy Head of Tech", name: "Manal Ahmed", photo: "assets/img/team/manal-ahmed.webp" },
       ],
@@ -120,20 +120,69 @@ window.MISMUN = {
             "Elsie Kelly", "Hafidzah Aulia Salsabila", "Julia Ena Poniente Bernardo",
             "Nabila Fairuz Jejen", "Michael Pineda Herrera", "Jaren Yahael Lawrence",
             "Andhiny Alfrissa", "Una Belissa Rivera", "Ghazala Arum", "Siluni Hapuarachchilage",
-            "Aisy Yumna", "Yaqtan Imran",
+            "Aisy Yumna", "Yaqtan Imran", "Thea Edades", "Nhyira Ama Afful",
           ],
         },
       ],
     },
   ],
 
-  /* ---- COMMITTEES & ISSUES --------------------------------------------- */
-  // Set tba: true on placeholder entries; remove it when the real info is in.
+  /* ---- COMMITTEES, CHAIRS & ISSUES ------------------------------------- */
+  // focus: optional subtitle (used for the General Assembly committees).
+  // school: the chair's school, shown as a small tag; leave "" for MIS.
+  // issues: add the issues as strings; while the list is empty the card
+  // says "To be announced" and the "Issues coming soon" sticker shows.
   committees: [
-    { abbr: "TBA", name: "Committee name", issues: ["Issue 1", "Issue 2"], tba: true },
-    { abbr: "TBA", name: "Committee name", issues: ["Issue 1", "Issue 2"], tba: true },
-    { abbr: "TBA", name: "Committee name", issues: ["Issue 1", "Issue 2"], tba: true },
-    { abbr: "TBA", name: "Committee name", issues: ["Issue 1", "Issue 2"], tba: true },
+    {
+      abbr: "GA1", name: "General Assembly First Committee", focus: "Disarmament and International Security",
+      chairs: [{ role: "Head Chair", name: "Rulan Rosssouw", school: "OIS" }, { role: "Deputy Chair", name: "Ayaan Atif", school: "" }],
+      issues: [],
+    },
+    {
+      abbr: "SC", name: "Security Council",
+      chairs: [{ role: "Head Chair", name: "Aarna Kalakoti", school: "OIS" }, { role: "Deputy Chair", name: "Muhammad Shaheer", school: "" }],
+      issues: [],
+    },
+    {
+      abbr: "UNESCO", name: "United Nations Educational, Scientific and Cultural Organization",
+      chairs: [{ role: "Head Chair", name: "Zainab Ali", school: "" }, { role: "Deputy Chair", name: "Anna Kovarova", school: "OIS" }],
+      issues: [],
+    },
+    {
+      abbr: "HRC", name: "Human Rights Council",
+      chairs: [{ role: "Head Chair", name: "Nicole Claudio", school: "OIS" }, { role: "Deputy Chair", name: "Muhammad Ali Khan", school: "" }],
+      issues: [],
+    },
+    {
+      abbr: "UNCSW", name: "Commission on the Status of Women",
+      chairs: [{ role: "Head Chair", name: "Arni Mahendra", school: "DBS AK" }, { role: "Deputy Chair", name: "Noor ul Ain Sajid", school: "" }],
+      issues: [],
+    },
+    {
+      abbr: "CCPCJ", name: "Commission on Crime Prevention and Criminal Justice",
+      chairs: [{ role: "Head Chair", name: "Zohaa Fahad", school: "" }, { role: "Deputy Chair", name: "Chinmayee Kothekar", school: "DES" }],
+      issues: [],
+    },
+    {
+      abbr: "ECOSOC", name: "Economic and Social Council",
+      chairs: [{ role: "Head Chair", name: "Zaidhan Sakkir", school: "" }, { role: "Deputy Chair", name: "Abdelrahman Amr Ayad", school: "NIA" }],
+      issues: [],
+    },
+    {
+      abbr: "UNICEF", name: "United Nations Children’s Fund",
+      chairs: [{ role: "Head Chair", name: "Fakiha Tajelli", school: "AKIS" }, { role: "Deputy Chair", name: "Youssef Zaitoun", school: "" }],
+      issues: [],
+    },
+    {
+      abbr: "GA2", name: "General Assembly Second Committee", focus: "Economic and Financial",
+      chairs: [{ role: "Head Chair", name: "Sahana Hareesh", school: "OIS" }, { role: "Deputy Chair", name: "Hafy Adrymansyah", school: "" }],
+      issues: [],
+    },
+    {
+      abbr: "GA4", name: "General Assembly Fourth Committee", focus: "Special Political and Decolonization",
+      chairs: [{ role: "Head Chair", name: "Manha Khan", school: "OIS" }, { role: "Deputy Chair", name: "Kiera Francois", school: "DBS AK" }],
+      issues: [],
+    },
   ],
 
   /* ---- SCHEDULE ---------------------------------------------------------- */
