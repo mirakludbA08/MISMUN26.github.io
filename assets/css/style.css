@@ -188,6 +188,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 /* ---------- type pieces ---------- */
 .label {
   display: block;
+  width: fit-content;
   margin: 0 0 .7rem;
   font: 400 .95rem/1.2 var(--f-type);
   letter-spacing: .05em;
@@ -608,6 +609,7 @@ body.menu-open { overflow: hidden; }
 .facts .v { display: block; font: 400 1.35rem/1.15 var(--f-display); text-transform: uppercase; }
 .facts a { text-decoration-color: var(--magenta); text-underline-offset: 3px; }
 .theme-quote { text-align: center; }
+.theme-quote .label { margin-inline: auto; }
 .theme-quote .h2 { font-size: clamp(2.8rem, 8vw, 5.6rem); line-height: .95; }
 .theme-quote .lede { margin: 1.4rem auto 0; }
 
@@ -757,7 +759,7 @@ body.menu-open { overflow: hidden; }
 .roster__icon::after { transform: rotate(90deg); }
 .roster[open] .roster__icon::after { transform: rotate(0deg); }
 .roster[open] .roster__toggle { box-shadow: 3px 3px 0 var(--magenta); transform: none; }
-.roster__body { margin-top: 14px; animation: roster-in .25s ease; }
+.roster__body { margin-top: 14px; animation: roster-in .32s ease-out; }
 .roster__list {
   margin: 0;
   padding: 0;
@@ -787,7 +789,11 @@ body.menu-open { overflow: hidden; }
   transform: rotate(-4deg);
 }
 .roster__list li:nth-child(3n+2)::before { background: var(--magenta); color: #fff; }
-@keyframes roster-in { from { opacity: 0; transform: translateY(-6px); } }
+/* the folded list opens downwards */
+@keyframes roster-in {
+  from { clip-path: inset(0 0 100% 0); translate: 0 -10px; }
+  to { clip-path: inset(0); }
+}
 @media (max-width: 560px) {
   .roster__toggle { flex-wrap: wrap; }
   .roster__count { margin-left: 0; order: 3; }
@@ -1160,7 +1166,7 @@ body.menu-open { overflow: hidden; }
   font: 900 1.35rem/1 var(--f-body);
   transform: rotate(-3deg);
 }
-.team-poster__meet { display: block; margin: .7rem 0 0; font: 400 clamp(1.7rem, 4.6vw, 3rem)/1 var(--f-marker); text-transform: uppercase; transform: rotate(-2deg); }
+.team-poster__meet { display: block; width: fit-content; margin: .7rem auto 0; font: 400 clamp(1.7rem, 4.6vw, 3rem)/1 var(--f-marker); text-transform: uppercase; transform: rotate(-2deg); }
 .team-poster__name { margin: .05em 0 .1em; }
 .team-poster__tags { display: flex; flex-wrap: wrap; justify-content: center; gap: .55rem .8rem; margin: .4rem 0 0; }
 .team-poster__tags .tag:nth-child(2) { --r: 1.8deg; }
@@ -1297,7 +1303,8 @@ body.menu-open { overflow: hidden; }
 .sec-poster__head { margin-bottom: clamp(30px, 4vw, 48px); text-align: center; }
 .sec-poster__meet {
   display: block;
-  margin: .7rem 0 .3rem;
+  width: fit-content;
+  margin: .7rem auto .3rem;
   color: var(--black);
   font: 400 clamp(1.7rem, 4.6vw, 3rem)/1 var(--f-marker);
   text-transform: uppercase;
@@ -1340,6 +1347,127 @@ body.menu-open { overflow: hidden; }
   .datechips__vis { gap: .3rem; }
   .dc { font-size: 1.05rem; }
   .dc--to { font-size: .95rem; }
+}
+
+/* ==========================================================================
+   Spray paint + paste-up transitions
+   Paint gets sprayed on, paper gets slapped on. main.js adds the fx- classes;
+   html.fx (set in each page's <head>) is off for reduced-motion visitors.
+   The masks are film strips, one frame per step: .claude/spray-sprites.py
+   ========================================================================== */
+
+/* sprayed line with drips under section headings */
+.h2__paint { position: relative; display: inline-block; padding-bottom: .38em; }
+.h2__paint::after {
+  content: "";
+  position: absolute;
+  left: -.08em;
+  right: -.14em;
+  bottom: -.02em;
+  height: .46em;
+  background: var(--magenta);
+  -webkit-mask: url("../img/spray-stroke.webp") 0 0 / 100% 100% no-repeat;
+          mask: url("../img/spray-stroke.webp") 0 0 / 100% 100% no-repeat;
+}
+
+/* nothing static shows until main.js has tagged it; the <head> timer is the fallback */
+html.fx:not(.fx-go) :is(.hero__logo, .hero__copy, .page-hero .wrap, .page-hero__star) { visibility: hidden; }
+.fx-wait { opacity: 0 !important; }
+
+.fx-fill {
+  -webkit-mask: url("../img/spray-fill.webp") 0 0 / 1600% 100% no-repeat;
+          mask: url("../img/spray-fill.webp") 0 0 / 1600% 100% no-repeat;
+  animation: fx-spray .72s steps(16, jump-none) var(--fx-d, 0ms) both;
+}
+.fx-sweep {
+  -webkit-mask: url("../img/spray-sweep.webp") 0 0 / 1200% 100% no-repeat;
+          mask: url("../img/spray-sweep.webp") 0 0 / 1200% 100% no-repeat;
+  animation: fx-spray .5s steps(12, jump-none) var(--fx-d, 0ms) both;
+}
+/* these two already have a mask, so the spray sits on top of it */
+.brush.fx-sweep {
+  -webkit-mask: url("../img/spray-sweep.webp") 0 0 / 1200% 100% no-repeat, var(--distress) 0 0 / 200px 200px;
+          mask: url("../img/spray-sweep.webp") 0 0 / 1200% 100% no-repeat, var(--distress) 0 0 / 200px 200px;
+}
+.scribble.fx-sweep {
+  -webkit-mask: url("../img/spray-sweep.webp") 0 0 / 1200% 100% no-repeat, url("../img/scribble.svg") 0 0 / 100% 100% no-repeat;
+          mask: url("../img/spray-sweep.webp") 0 0 / 1200% 100% no-repeat, url("../img/scribble.svg") 0 0 / 100% 100% no-repeat;
+}
+.brush.fx-sweep, .scribble.fx-sweep {
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
+  animation-name: fx-spray-2;
+}
+/* a mask stops at the box, so give shadows room while the paint goes on */
+.hero__stencil.fx-fill { margin: -30px -40px -56px; padding: 30px 40px 56px; }
+.tab-panel.fx-fill { margin: -10px -14px -16px; padding: 10px 14px 16px; }
+
+.fx-paste { animation: fx-paste .52s cubic-bezier(.2, .75, .25, 1) var(--fx-d, 0ms) both; }
+.fx-slap { animation: fx-slap .34s cubic-bezier(.3, .7, .4, 1) var(--fx-d, 0ms) both; }
+.fx-fade { animation: fx-fade .5s ease-out var(--fx-d, 0ms) both; }
+.fx-pop { animation: fx-pop .4s cubic-bezier(.2, 1.3, .4, 1) var(--fx-d, 0ms) both; }
+/* typewriter labels, one character a step (--n is the length, set in main.js) */
+.fx-type { animation: fx-type calc(var(--n) * 24ms) steps(var(--n), end) var(--fx-d, 0ms) both; }
+/* rubber stamps thud down, polaroids come up from pale */
+.fx-stamp { animation: fx-stamp .3s cubic-bezier(.3, .7, .4, 1) var(--fx-d, 0ms) both; }
+.fx-develop { animation: fx-develop 1s ease-out var(--fx-d, 0ms) both; }
+/* the tape goes on once the card has landed, and ends before fx-paste does */
+.shell.taped.fx-paste::before { animation: fx-tape .28s ease-out calc(var(--fx-d, 0ms) + .2s) both; }
+
+@keyframes fx-spray {
+  to { -webkit-mask-position: 100% 0; mask-position: 100% 0; }
+}
+@keyframes fx-spray-2 {
+  to { -webkit-mask-position: 100% 0, 0 0; mask-position: 100% 0, 0 0; }
+}
+@keyframes fx-paste { from { opacity: 0; translate: 0 22px; rotate: 1.8deg; scale: 1.035; } }
+@keyframes fx-slap {
+  from { opacity: 0; scale: 1.55; }
+  60% { opacity: 1; scale: .97; }
+}
+@keyframes fx-fade { from { opacity: 0; translate: 0 8px; } }
+@keyframes fx-pop { from { opacity: 0; scale: .2; } }
+@keyframes fx-type {
+  from { clip-path: inset(-.2em 100% -.2em 0); }
+  to { clip-path: inset(-.2em 0 -.2em 0); }
+}
+@keyframes fx-stamp {
+  from { opacity: 0; scale: 1.26; }
+  55% { opacity: .85; scale: .985; }
+}
+/* same filter order as .photo img, or the browser snaps instead of blending */
+@keyframes fx-develop { from { filter: saturate(.15) contrast(.62) brightness(1.75); } }
+@keyframes fx-tape { from { transform: rotate(var(--tr, -5deg)) scaleX(0); transform-origin: 0 50%; } }
+
+/* mobile menu: sprayed open from the top, links slapped on */
+html.fx .menu.is-open {
+  -webkit-mask: url("../img/spray-fill.webp") 0 0 / 1600% 100% no-repeat;
+          mask: url("../img/spray-fill.webp") 0 0 / 1600% 100% no-repeat;
+  animation: fx-spray .6s steps(16, jump-none) both;
+  transition: none;
+}
+html.fx .menu.is-open .menu__list a { animation: fx-slap .34s cubic-bezier(.3, .7, .4, 1) calc(var(--i) * 45ms + 160ms) both; }
+
+/* page changes: the new page is sprayed over the old one, the header stays put */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  .site-header { view-transition-name: site-header; }
+  .nav a[aria-current="page"] { view-transition-name: nav-current; } /* the paper label slides to the new page */
+  ::view-transition-group(nav-current), ::view-transition-old(nav-current), ::view-transition-new(nav-current) {
+    animation-duration: .45s;
+    animation-timing-function: cubic-bezier(.2, .8, .2, 1);
+  }
+  ::view-transition-old(root) { animation: none; mix-blend-mode: normal; }
+  ::view-transition-new(root) {
+    mix-blend-mode: normal;
+    -webkit-mask: url("../img/spray-fill.webp") 0 0 / 1600% 100% no-repeat;
+            mask: url("../img/spray-fill.webp") 0 0 / 1600% 100% no-repeat;
+    animation: fx-spray .72s steps(16, jump-none) both;
+  }
+}
+
+@media print {
+  .fx-wait { opacity: 1 !important; }
 }
 
 /* ---------- motion preferences ---------- */

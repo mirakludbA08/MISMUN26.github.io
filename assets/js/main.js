@@ -197,7 +197,10 @@
       '<p class="menu__foot">' + esc(C.datesLabel) + " · " + esc(C.venue) +
       (L.instagram ? ' · <a href="' + esc(L.instagram) + '" target="_blank" rel="noopener">' + esc(L.instagramHandle) + "</a>" : "") + "</p>";
     h.insertAdjacentElement("afterend", menu);
-    $$(".menu__list li", menu).forEach(function (li, i) { li.firstChild.style.setProperty("--r", (i % 2 ? 1.6 : -2.2) + "deg"); });
+    $$(".menu__list li", menu).forEach(function (li, i) {
+      li.firstChild.style.setProperty("--r", (i % 2 ? 1.6 : -2.2) + "deg");
+      li.firstChild.style.setProperty("--i", i);
+    });
 
     var openBtn = $(".menu-btn", h);
     var closeBtn = $("[data-close]", menu);
@@ -456,12 +459,14 @@
     $$('[role="tablist"]').forEach(function (list) {
       var tabs = $$('[role="tab"]', list);
       function select(tab) {
+        if (tab.getAttribute("aria-selected") === "true") return;
         tabs.forEach(function (t) {
           var on = t === tab;
           t.setAttribute("aria-selected", on);
           t.tabIndex = on ? 0 : -1;
           document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
         });
+        fxPanel(document.getElementById(tab.getAttribute("aria-controls")));
       }
       tabs.forEach(function (t, i) {
         t.addEventListener("click", function () { select(t); });
@@ -494,6 +499,120 @@
     });
   }
 
+  /* ---------- spray paint + paste-up transitions ---------- */
+  // Paint gets sprayed on, paper gets slapped on. The inline script in each
+  // page's <head> sets html.fx unless the visitor prefers reduced motion.
+  var html = document.documentElement;
+  var fxSeen = null;
+
+  // [selector, effect, start ms, gap between items ms]: plays as the page opens
+  var FX_INTRO = [
+    [".hero__stencil", "fill", 0, 0],
+    [".labels .lb", "slap", 220, 90],
+    [".hero__title", "paste", 300, 0],
+    [".hero__title .lc", "slap", 420, 30],
+    [".datechips .dc", "slap", 840, 24],
+    [".hero__meta li, .hero__actions", "fade", 960, 70],
+    [".hero__star", "slap", 1060, 0],
+    [".page-hero .chip", "slap", 0, 0],
+    [".page-hero .ransom .l", "slap", 110, 34],
+    [".page-hero .lede", "fade", 420, 0],
+    [".page-hero__star", "slap", 520, 0],
+  ];
+  // [selector, effect, gap between items ms]: plays as each piece scrolls into view
+  var FX_SCROLL = [
+    [".team-poster__burst, .sec-poster__burst", "fill", 0],
+    [".h2__paint, .team-poster__meet, .sec-poster__meet, .brush, .scribble", "sweep", 130],
+    [".st", "pop", 26],
+    [".ig-band .ransom .l, .theme-quote .lc, .sec-poster__title .lc", "slap", 34],
+    [".ig-band .chip, .notice .star-wrap, .team-poster__year, .team-poster__blurb, .tag", "slap", 60],
+    [".label", "type", 0],
+    [".person__photo img, .photo img", "develop", 0],
+    [".dp-slab, .dp-type, .dayposter .star4-wrap, .tt__loc, .chair__school", "stamp", 45],
+  ];
+
+  function fxPlay(el, effect, delay) {
+    el.classList.remove("fx-wait");
+    el.style.setProperty("--fx-d", delay + "ms");
+    el.classList.add("fx-" + effect);
+    el.addEventListener("animationend", function done(e) {
+      if (e.target !== el) return;
+      el.removeEventListener("animationend", done);
+      el.classList.remove("fx-" + effect);
+    });
+  }
+
+  // a newly opened tab is sprayed on whole, so its pieces don't play again
+  function fxPanel(panel) {
+    if (!fxSeen) return;
+    $$(".fx-wait", panel).forEach(function (el) {
+      fxSeen.unobserve(el);
+      el.classList.remove("fx-wait");
+    });
+    fxPlay(panel, "fill", 0);
+  }
+
+  function initFx() {
+    if (!html.classList.contains("fx")) return;
+    $$(".label").forEach(function (el) { el.style.setProperty("--n", el.textContent.length); });
+
+    var intro = [];
+    FX_INTRO.forEach(function (row) {
+      $$(row[0]).forEach(function (el, i) {
+        el.classList.add("fx-wait");
+        intro.push([el, row[1], row[2] + i * row[3]]);
+      });
+    });
+    var scroll = [];
+    function watch(el, effect, gap) {
+      el.classList.add("fx-wait");
+      el.fx = { effect: effect, gap: gap };
+      scroll.push(el);
+    }
+    FX_SCROLL.forEach(function (row) {
+      $$(row[0]).forEach(function (el) { watch(el, row[1], row[2]); });
+    });
+    // every paper card; a poster holding cards of its own stays put
+    $$(".shell").forEach(function (el) {
+      if (!$(".shell", el)) watch(el, "paste", 75);
+    });
+    html.classList.add("fx-go");
+
+    // when arriving by page change, start once the spray has reached the page
+    var lead = 0;
+    var revealed = new Promise(function (ok) {
+      window.addEventListener("pagereveal", function (e) {
+        if (e.viewTransition) lead = 240;
+        ok();
+      }, { once: true });
+      setTimeout(ok, 150);
+    });
+    var masks = Promise.all(["spray-fill", "spray-sweep"].map(function (name) {
+      var img = new Image();
+      img.src = "assets/img/" + name + ".webp";
+      return img.decode().catch(function () {});
+    }));
+    var patience = new Promise(function (ok) { setTimeout(ok, 900); });
+
+    Promise.all([revealed, Promise.race([masks, patience])]).then(function () {
+      intro.forEach(function (it) { fxPlay(it[0], it[1], lead + it[2]); });
+      var opening = lead + 360; // anything already on screen follows the intro
+      fxSeen = new IntersectionObserver(function (entries, seen) {
+        var t = {};
+        entries.filter(function (e) { return e.isIntersecting; }).sort(function (a, b) {
+          return a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left;
+        }).forEach(function (e) {
+          var fx = e.target.fx;
+          seen.unobserve(e.target);
+          fxPlay(e.target, fx.effect, opening + Math.min(t[fx.effect] || 0, 480));
+          t[fx.effect] = (t[fx.effect] || 0) + fx.gap;
+        });
+        opening = 0;
+      }, { rootMargin: "0px 0px -4% 0px", threshold: 0.04 });
+      scroll.forEach(function (el) { fxSeen.observe(el); });
+    });
+  }
+
   renderHeader();
   renderFooter();
   renderNext();
@@ -508,6 +627,8 @@
   $$("[data-ransom]").forEach(ransomize);
   $$("[data-cards]").forEach(cardify);
   $$("[data-stars]").forEach(sprinkle);
+  $$(".h2").forEach(function (el) { el.innerHTML = '<span class="h2__paint">' + el.innerHTML + "</span>"; });
   initTabs();
   countdown();
+  initFx();
 })();
