@@ -679,17 +679,19 @@ body.menu-open { overflow: hidden; }
   .person__role { font-size: .76rem; }
 }
 
-/* Secretariat: --s (set per card in main.js) steps each card down in size */
-.people--sec { align-items: flex-end; }
-.person--sec { width: calc(236px * var(--s, 1)); }
-.person--sec .person__name { font-size: calc(1.6rem * var(--s, 1)); }
-.person--sec .person__role { font-size: max(.72rem, calc(.9rem * var(--s, 1))); }
-.person--sec .person__tag { font-size: max(.56rem, calc(.72rem * var(--s, 1))); white-space: nowrap; }
-.person--sec.taped::before { width: calc(104px * var(--s, 1)); margin-left: calc(-52px * var(--s, 1)); }
+/* Secretariat: five identical cards, sized so all five sit in one row on desktop
+   (5 x 196px + 4 gaps fits the poster); they wrap evenly (3 + 2, then 2 + 2 + 1) on smaller screens */
+.people--sec { align-items: stretch; container-type: inline-size; }
+.person--sec { width: 196px; min-height: 335px; } /* min-height keeps wrapped rows the same height too */
+.person--sec > .scrap { display: flex; flex-direction: column; height: 100%; }
+.person--sec .person__name { margin-bottom: auto; font-size: 1.4rem; }
+.person--sec .person__role { align-self: center; margin-top: .6rem; font-size: .8rem; }
+.person--sec .person__tag { font-size: .66rem; white-space: nowrap; }
 @media (max-width: 560px) {
-  .person--sec { width: calc((100% - 16px) / 2 * var(--s, 1) / .915); }
-  .person--sec .person__name { font-size: calc(1.3rem * var(--s, 1)); }
-  .person--sec .person__role { font-size: max(.66rem, calc(.8rem * var(--s, 1))); }
+  /* two per row: photo is 4:5 of the card width, plus room for a 2-line name and 3-line role */
+  .person--sec { width: calc((100% - 16px) / 2); min-height: calc(1.25 * ((100cqw - 16px) / 2 - 24px) + 134px); }
+  .person--sec .person__name { font-size: 1.2rem; }
+  .person--sec .person__role { font-size: .72rem; }
 }
 
 /* tabs (team + schedule) */
@@ -1315,7 +1317,11 @@ body.menu-open { overflow: hidden; }
 .tag--gold { background: var(--grain-paper), var(--gold); }
 .sec-poster .tag { font-size: clamp(1.1rem, 2.6vw, 1.5rem); }
 /* the cards stand on a torn black stage */
-.sec-poster .people--sec { gap: clamp(12px, 1.8vw, 22px); padding-bottom: 6px; }
+.sec-poster .people--sec { --sec-gap: clamp(12px, 1.8vw, 22px); gap: var(--sec-gap); padding-bottom: 6px; }
+/* on mid-size screens the five cards shrink together so they still fit one row */
+@container (min-width: 800px) and (max-width: 1083px) {
+  .person--sec { width: calc((100cqw - 4 * var(--sec-gap)) / 5); }
+}
 .sec-poster__stage {
   height: 46px;
   margin: -22px calc(-1 * var(--pad-x)) 0;
@@ -1333,7 +1339,7 @@ body.menu-open { overflow: hidden; }
   letter-spacing: .02em;
   text-transform: uppercase;
 }
-.person--sec .person__num { background: var(--gold); font-size: max(.66rem, calc(.9rem * var(--s, 1))); }
+.person--sec .person__num { background: var(--gold); font-size: .8rem; }
 
 /* small screens: tuck decorations out of the way of the content */
 @media (max-width: 860px) {

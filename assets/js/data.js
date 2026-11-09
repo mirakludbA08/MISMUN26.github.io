@@ -32,14 +32,13 @@ window.MISMUN = {
   },
 
   /* ---- THE BIG 5 (Secretariat) ----------------------------------------- */
-  // In order of seniority: each card is drawn a step smaller than the last.
-  // Optional scale (e.g. 0.6) overrides a card's size; 1 = the largest card.
+  // In order of seniority. All five cards are drawn the same size.
   secretariat: [
     { role: "Secretary General", name: "Ayan Mohamed", photo: "assets/img/team/ayan-mohamed.webp" },
     { role: "Deputy Secretary General", name: "Rishi Sharma", photo: "assets/img/team/rishi-sharma.webp" },
     { role: "President", name: "Helen", photo: "assets/img/team/helen.webp" },
     { role: "Deputy President", name: "Ammar Bin Khalid", photo: "assets/img/team/ammar-bin-khalid.webp" },
-    { role: "Deputy President", name: "Saffiyah", photo: "assets/img/team/saffiyah.webp", scale: 0.6 },
+    { role: "Deputy President", name: "Saffiyah", photo: "assets/img/team/saffiyah.webp" },
   ],
 
   /* ---- TEAMS: 2 heads + 2 deputy heads each ---------------------------- */
@@ -93,9 +92,8 @@ window.MISMUN = {
         {
           name: "Tech Team",
           names: [
-            "Haniya Ahmed", "Nahyan Shaikh", "Shaheer Abbas", "Aidyn Fateen", "Juan Abdul Hamed",
-            "Bakhthawar Hayat", "Momin Cheema", "Abarka", "Ziyan Afzal", "Luqman",
-            "Abdullah Sattar", "Abdulla Amer", "Hassan Raza",
+            "Haniya Ahmed", "Nahyan Shaikh", "Shaheer Abbas", "Momin Cheema",
+            "Bakthawar Hayat", "Abarka", "Ziyan Afzal", "Luqman",
           ],
         },
       ],
@@ -135,7 +133,7 @@ window.MISMUN = {
   committees: [
     {
       abbr: "GA1", name: "General Assembly First Committee", focus: "Disarmament and International Security",
-      chairs: [{ role: "Head Chair", name: "Rulan Rosssouw", school: "OIS" }, { role: "Deputy Chair", name: "Ayaan Atif", school: "" }],
+      chairs: [{ role: "Head Chair", name: "Rulan Rossouw", school: "OIS" }, { role: "Deputy Chair", name: "Ayaan Atif", school: "" }],
       issues: [],
     },
     {

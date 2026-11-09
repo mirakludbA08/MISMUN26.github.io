@@ -322,9 +322,9 @@
   function renderSecretariat() {
     var el = $("[data-secretariat]");
     if (!el || !D.secretariat) return;
-    // most senior first, each card a step smaller (--s scales it in CSS)
+    // most senior first; every card is the same size (set in CSS)
     el.innerHTML = D.secretariat.map(function (p, i) {
-      return personCard(p, i, "person--sec", ";--s:" + (p.scale || Math.max(0.6, 1 - i * 0.085)).toFixed(3), "0" + (i + 1));
+      return personCard(p, i, "person--sec", "", "0" + (i + 1));
     }).join("");
   }
 
