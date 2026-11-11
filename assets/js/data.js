@@ -34,7 +34,7 @@ window.MISMUN = {
   /* ---- THE BIG 5 (Secretariat) ----------------------------------------- */
   // In order of seniority. All five cards are drawn the same size.
   secretariat: [
-    { role: "Secretary General", name: "Ayan Mohamed", photo: "assets/img/team/ayan-mohamed.webp" },
+    { role: "Secretary General", name: "Ayan Mohammad", photo: "assets/img/team/ayan-mohamed.webp" },
     { role: "Deputy Secretary General", name: "Rishi Sharma", photo: "assets/img/team/rishi-sharma.webp" },
     { role: "President", name: "Helen Mangue", photo: "assets/img/team/helen.webp" },
     { role: "Deputy President", name: "Ammar Bin Khalid", photo: "assets/img/team/ammar-bin-khalid.webp" },
