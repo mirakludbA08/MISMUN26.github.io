@@ -856,6 +856,18 @@ body.menu-open { overflow: hidden; }
   font: 400 .85rem/1 var(--f-display);
   transform: rotate(-4deg);
 }
+.issue__report {
+  display: block;
+  width: fit-content;
+  margin-top: .35rem;
+  font: 400 .85rem/1.2 var(--f-type);
+  letter-spacing: .03em;
+  color: var(--magenta-d);
+  text-decoration: underline;
+  text-underline-offset: .22em;
+}
+.issue__report::after { content: " \2192"; content: " \2192" / ""; }
+.issue__report:hover { color: var(--ink); }
 .committee--tba .scrap { opacity: .9; }
 .committee--tba .issues li { color: rgba(17, 14, 36, .6); font-style: italic; }
 
@@ -891,16 +903,19 @@ body.menu-open { overflow: hidden; }
 }
 
 /* ---------- RESOURCES ---------- */
-.resources {
+/* research reports: one committee card each, a button per issue */
+.reports {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: clamp(24px, 3vw, 36px);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr));
+  gap: clamp(26px, 3.4vw, 42px);
 }
-.resource .scrap { display: flex; flex-direction: column; height: 100%; }
-.resource__icon { width: 46px; height: 46px; margin-bottom: .9rem; color: var(--magenta); }
-.resource__title { margin: 0 0 .45rem; font: 400 1.6rem/1.05 var(--f-display); text-transform: uppercase; }
-.resource__desc { margin: 0 0 1.4rem; font-size: 1rem; line-height: 1.5; }
-.resource .btn { margin-top: auto; align-self: flex-start; font-size: 1rem; padding: .7em 1em .65em; }
+.report .scrap { height: 100%; }
+.report__icon { flex: none; width: 46px; height: 46px; color: var(--magenta); }
+.report__issues { margin-top: 1.2rem; }
+.report__issues li { padding-block: .9rem 1.05rem; }
+.report__issues li::before { top: .92rem; }
+.report__issue { margin: 0 0 .8rem; font-weight: 600; line-height: 1.4; }
+.report .btn { font-size: .95rem; padding: .62em .95em .58em; }
 .glossary { columns: 2 300px; column-gap: clamp(28px, 4vw, 56px); margin: 0; }
 .glossary div { break-inside: avoid; padding: .9rem 0; border-bottom: 1px dashed rgba(17, 14, 36, .45); }
 .glossary dt { font: 400 1.3rem/1.1 var(--f-display); text-transform: uppercase; margin-bottom: .3rem; }

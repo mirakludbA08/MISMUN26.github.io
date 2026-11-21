@@ -14,7 +14,7 @@
     { id: "committees", href: "committees.html", label: "Committees", desc: "Every committee and the issues up for debate." },
     { id: "team", href: "team.html", label: "Team", desc: "The Secretariat plus the Admin, Tech and Press teams." },
     { id: "schedule", href: "schedule.html", label: "Schedule", desc: "Two days, session by session." },
-    { id: "resources", href: "resources.html", label: "Resources", desc: "Rules of procedure, guides and research reports." },
+    { id: "resources", href: "resources.html", label: "Resources", desc: "Research reports for every issue, plus MUN in 60 seconds." },
   ];
 
   /* ---------- helpers ---------- */
@@ -370,6 +370,12 @@
   }
 
   /* ---------- committees ---------- */
+  // an issue is { title, report }; a plain string still works
+  function issuesOf(c) {
+    return (c.issues || []).map(function (s) { return typeof s === "string" ? { title: s } : s; });
+  }
+  var NEW_TAB = '<span class="sr-only"> (opens in a new tab)</span>';
+
   function renderCommittees() {
     var el = $("[data-committees]");
     if (!el || !D.committees) return;
@@ -379,7 +385,7 @@
     if (notice) notice.hidden = !missing;
     var looks = ["", "scrap--news", "scrap--lav", "scrap--news"];
     el.innerHTML = D.committees.map(function (c, i) {
-      var issues = c.issues || [];
+      var issues = issuesOf(c);
       var chairs = (c.chairs || []).map(function (ch) {
         return '<div class="chair"><dt>' + esc(ch.role) + "</dt><dd>" + esc(ch.name) +
           (ch.school ? ' <span class="chair__school">' + esc(ch.school) + "</span>" : "") + "</dd></div>";
@@ -393,7 +399,11 @@
         (chairs ? '<dl class="chairs">' + chairs + "</dl>" : "") +
         '<p class="committee__label">Issues on the agenda</p>' +
         (issues.length
-          ? '<ol class="issues">' + issues.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ol>"
+          ? '<ol class="issues">' + issues.map(function (s) {
+              return "<li>" + esc(s.title) +
+                (s.report ? '<a class="issue__report" href="' + esc(s.report) + '" target="_blank" rel="noopener">Research report<span class="sr-only">: ' + esc(s.title) + "</span>" + NEW_TAB + "</a>" : "") +
+                "</li>";
+            }).join("") + "</ol>"
           : '<p class="committee__tba">To be announced</p>') +
         "</div></article>";
     }).join("");
@@ -437,20 +447,28 @@
     el.innerHTML = tabs + panels;
   }
 
-  /* ---------- resources ---------- */
-  function renderResources() {
-    var el = $("[data-resources]");
-    if (!el || !D.resources) return;
+  /* ---------- resources: one research-report card per committee ---------- */
+  function renderReports() {
+    var el = $("[data-reports]");
+    if (!el || !D.committees) return;
     var looks = ["", "scrap--news", "scrap--lav"];
-    el.innerHTML = D.resources.map(function (r, i) {
-      var btn = r.url
-        ? '<a class="btn" href="' + esc(r.url) + '" target="_blank" rel="noopener">Open ' + ICON.arrow + "</a>"
-        : '<span class="btn" aria-disabled="true">Coming soon</span>';
-      return '<article class="resource shell" style="--r:' + tilt(i, 1.3) + '">' +
+    el.innerHTML = D.committees.map(function (c, i) {
+      var issues = issuesOf(c);
+      var list = issues.length
+        ? '<ol class="issues report__issues">' + issues.map(function (s) {
+            var btn = s.report
+              ? '<a class="btn" href="' + esc(s.report) + '" target="_blank" rel="noopener">Read report<span class="sr-only">: ' + esc(s.title) + "</span>" + NEW_TAB + ICON.arrow + "</a>"
+              : '<span class="btn" aria-disabled="true">Coming soon</span>';
+            return '<li><p class="report__issue">' + esc(s.title) + "</p>" + btn + "</li>";
+          }).join("") + "</ol>"
+        : '<p class="committee__tba">To be announced</p>';
+      return '<article class="report shell" style="--r:' + tilt(i, 0.9) + '">' +
         '<div class="scrap torn-tb ' + looks[i % looks.length] + '" style="--tx:' + i * 60 + "px;--bx:" + i * 110 + 'px">' +
-        '<span class="resource__icon">' + ICON.doc + "</span>" +
-        '<h3 class="resource__title">' + esc(r.title) + "</h3>" +
-        '<p class="resource__desc">' + esc(r.desc) + "</p>" + btn + "</div></article>";
+        '<div class="committee__top"><span class="committee__abbr"><span class="strip">' + esc(c.abbr) + "</span></span>" +
+        '<span class="report__icon" aria-hidden="true">' + ICON.doc + "</span></div>" +
+        '<h3 class="committee__name">' + esc(c.name) + "</h3>" +
+        (c.focus ? '<p class="committee__focus">' + esc(c.focus) + "</p>" : "") +
+        list + "</div></article>";
     }).join("");
   }
 
@@ -621,7 +639,7 @@
   renderTeams();
   renderCommittees();
   renderSchedule();
-  renderResources();
+  renderReports();
   renderDateChips();
   bindText();
   $$("[data-ransom]").forEach(ransomize);
