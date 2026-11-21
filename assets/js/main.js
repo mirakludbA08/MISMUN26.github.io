@@ -1,4 +1,7 @@
-/* MISMUN 2026 — shared behaviour. Content lives in data.js. */
+/* MISMUN 2026 — shared behaviour. Content lives in data.js.
+   GitHub Pages lets browsers keep files for 10 minutes, so after changing this
+   file, style.css or data.js, change the ?v= number on the <link>/<script> tags
+   in every .html page (e.g. to today's date) so visitors get the new copies. */
 (function () {
   "use strict";
 
